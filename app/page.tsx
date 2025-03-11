@@ -20,7 +20,7 @@ export default function Home() {
               YVS Mechotronics delivers cutting-edge automation solutions with our expertise
               in special purpose machines, CNC, and precision machining.
             </p>
-            <div className="mt-10 flex md:flex-col items-center justify-center gap-x-6">
+            <div className="mt-10 flex flex-col lg:flex-row items-center justify-center gap-x-6">
               <Button size="lg" asChild>
                 <Link href="/products">
                   Explore Our Solutions
