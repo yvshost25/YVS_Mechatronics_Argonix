@@ -15,7 +15,7 @@ export default function AboutPage() {
       {/* Hero Section with Background Image */}
       <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center" style={{ backgroundImage: "url('/about_bg.png')" }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center text-white"
             initial={fadeIn.initial}
@@ -26,7 +26,7 @@ export default function AboutPage() {
               About YVS Mechatronics
             </h1>
             <p className="mt-6 text-lg">
-              Established in 2020, YVS Mechatronics is at the forefront of industrial automation, special-purpose machines, and precision engineering. Our passion for innovation and excellence drives us to deliver state-of-the-art solutions that transform manufacturing, automotive, aerospace, and SME sectors.
+              We at YVS Mechatronics are at the forefront of industrial automation, special-purpose machines, and precision engineering. Our passion for innovation and excellence drives us to deliver state-of-the-art solutions that transform the manufacturing, automotive, aerospace, and SME sectors.
             </p>
           </motion.div>
         </div>
@@ -34,7 +34,7 @@ export default function AboutPage() {
 
       {/* Vision, Mission, Specialization & Employees Section */}
       <section className="py-16 bg-muted/50">
-        <div className="container px-4 sm:px-6 lg:px-8 space-y-16">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Vision & Mission */}
           <div className="grid gap-8 items-center justify-end">
             <motion.div
@@ -96,7 +96,7 @@ export default function AboutPage() {
       {/* Company History Section with Background */}
 
       <section className="py-16">
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-3xl text-center"
             initial={{ opacity: 0, y: 20 }}

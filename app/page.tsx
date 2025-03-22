@@ -17,11 +17,10 @@ export default function Home() {
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/10 dark:from-black/40 dark:to-black/20" />
-
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
               Empowering Industries with Innovative Engineering
             </h1>
             <p className="mt-6 text-lg leading-8">
@@ -48,7 +47,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold">About YVS Mechatronics</h2>
             <p className="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              Established in 2020, YVS Mechatronics is at the forefront of science, engineering, and technology. Based in Cherlapally, Hyderabad, our company is equipped with modern tools and machinery—including 5 CNC machines, 2 milling machines, 2 lathes, and advanced TIG & ARC welding setups. We specialize in industrial automation, special-purpose machines, precision engineering components, and comprehensive fabrication services.
+              We at YVS Mechatronics are at the forefront of science, engineering, and technology. Based in Cherlapally, Hyderabad, our facility is equipped with state-of-the-art tools and machinery, including 5 CNC machines, 2 milling machines, 2 lathes, and advanced TIG & ARC welding setups. We specialize in industrial automation, special-purpose machines, precision engineering components, and offer comprehensive fabrication services.
             </p>
           </div>
         </div>

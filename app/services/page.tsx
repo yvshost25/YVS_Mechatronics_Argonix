@@ -115,7 +115,7 @@ export default function ProductsPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center" style={{ backgroundImage: "url('/services_bg.png')" }}>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -135,7 +135,7 @@ export default function ProductsPage() {
 
       {/* Featured Products Carousel */}
       <section className="py-16 bg-muted/50 relative">
-        <div className="container px-4 sm:px-6 lg:px-8 relative">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <Carousel className="mx-auto max-w-5xl relative">
             <CarouselContent className="overflow-visible">
               {products.map((product, index) => (
@@ -201,7 +201,7 @@ export default function ProductsPage() {
 
       {/* Product Categories / Services Offered */}
       <section className="py-16">
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-3">
             <motion.div
               className="text-center"

@@ -58,7 +58,7 @@ export default function CustomersPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center opacity-100" style={{ backgroundImage: "url('/customer.png')" }}>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial={fadeInUp.initial}
@@ -75,7 +75,7 @@ export default function CustomersPage() {
 
       {/* Testimonials */}
       <section className="py-16 bg-muted/50">
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {customers.map((customer, index) => (
               <motion.div
@@ -115,7 +115,7 @@ export default function CustomersPage() {
 
       {/* Client Logos */}
       <section className="py-16 bg-background">
-        <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Trusted By Industry Leaders</h2>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3 items-center">
             {clientLogos.map((logo, index) => (
