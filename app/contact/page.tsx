@@ -4,20 +4,27 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { MapPin, Mail, Send } from "lucide-react"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     message: ''
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log('Form submitted:', formData)
+
+    const recipient = 'info@yvsmechotronics.com'
+    const subject = encodeURIComponent(`Inquiry from ${formData.name}`)
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )
+    const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`
+
+    // Redirect to mail client
+    window.location.href = mailtoUrl
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,9 +38,9 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background py-12 sm:py-16 lg:py-20">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact Us</h1>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact YVS Mechatronics</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Get in touch with our team for inquiries about our automation solutions
+            Get in touch with our team for inquiries about industrial automation, special-purpose machines, precision engineering, and fabrication services.
           </p>
         </div>
 
@@ -43,7 +50,7 @@ export default function ContactPage() {
             <div>
               <h2 className="text-2xl font-bold">Get in Touch</h2>
               <p className="mt-4 text-muted-foreground">
-                Our team is here to help you with any questions about our products and services.
+                Our experts are here to answer your questions and guide you through our innovative engineering solutions.
               </p>
             </div>
 
@@ -52,15 +59,10 @@ export default function ContactPage() {
                 <MapPin className="h-6 w-6 text-primary" />
                 <div>
                   <h3 className="font-medium">Address</h3>
-                  <p className="text-muted-foreground">123 Industrial Area, Chennai, Tamil Nadu</p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Phone className="h-6 w-6 text-primary" />
-                <div>
-                  <h3 className="font-medium">Phone</h3>
-                  <p className="text-muted-foreground">+91 123 456 7890</p>
+                  <p className="text-muted-foreground">
+                    Shed No. 19 &amp; 20, Phase-II, IDA, Cherlapally, Kapra, Hyderabad,<br/>
+                    Medchal Malkajgiri Dist- 500051, Telangana State
+                  </p>
                 </div>
               </div>
 
@@ -76,7 +78,7 @@ export default function ContactPage() {
             {/* Map */}
             <div className="aspect-video w-full overflow-hidden rounded-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.531685694653!2d78.39599631531766!3d17.385044188728446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91d6f92f962f%3A0x23d58d29ebfe73de!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1659942468967!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.531685694653!2d78.39599631531766!3d17.385044188728446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91d6f92f962f%3A0x23d58d29ebfe73de!2sIDA,Cherlapally,Kapra,Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1659942468967!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -123,21 +125,6 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium">
-                  Phone
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="mt-1"
-                  placeholder="+91 123 456 7890"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="message" className="block text-sm font-medium">
                   Message
                 </label>
@@ -148,7 +135,7 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={handleChange}
                   className="mt-1"
-                  placeholder="How can we help you?"
+                  placeholder="How can we assist you?"
                   rows={4}
                 />
               </div>

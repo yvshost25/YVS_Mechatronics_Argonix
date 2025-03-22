@@ -9,8 +9,8 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold">About Us</h3>
             <p className="mt-4 text-sm text-muted-foreground">
-              YVS Mechotronics is a leading manufacturer of special purpose machines,
-              CNC, and precision machining solutions.
+              YVS Mechatronics, established in 2020, is a leading company specializing in industrial automation, special-purpose machines, precision engineering components, and fabrication services. 
+              With a focus on innovation and excellence, the company delivers state-of-the-art solutions to industries such as manufacturing, automotive, aerospace, and small and medium enterprises (SMEs).
             </p>
           </div>
           <div>
@@ -42,13 +42,11 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <ul className="mt-4 space-y-2">
               <li className="text-sm text-muted-foreground">
-                123 Industrial Area
+              Shed No. 19 & 20, Phase-II, IDA, Cherlapally, Kapra
               </li>
               <li className="text-sm text-muted-foreground">
-                Hyd, Telangana
-              </li>
-              <li className="text-sm text-muted-foreground">
-                Phone: +91 123 456 7890
+              Hyderabad,
+              Medchal Malkajgiri Dist- 500051, Telangana State
               </li>
               <li className="text-sm text-muted-foreground">
                 Email: info@yvsmechotronics.com
@@ -75,7 +73,7 @@ const Footer = () => {
         </div>
         <div className="mt-8 border-t pt-8">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} YVS Mechotronics. All rights reserved.
+            © {new Date().getFullYear()} YVS MECHATRONICS. All rights reserved.
           </p>
         </div>
       </div>

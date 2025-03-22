@@ -33,7 +33,7 @@ const Header = () => {
             <Link href="/" className="flex items-center space-x-2">
               <Cog className="h-8 w-8" />
               <span className="hidden text-xl font-bold sm:inline-block">
-                YVS Mechotronics
+                YVS MECHATRONICS
               </span>
             </Link>
           </div>

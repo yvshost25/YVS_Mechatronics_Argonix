@@ -5,6 +5,9 @@ import {
   Settings, 
   Cpu, 
   Gauge,
+  LucidePenTool,
+  Lightbulb,
+  Edit3,
   ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,22 +23,40 @@ import {
 export default function ProductsPage() {
   const products = [
     {
-      title: "CNC Machining Centers",
-      description: "High-precision CNC machines for complex manufacturing requirements",
-      features: ["5-axis capability", "Advanced tooling system", "Real-time monitoring"],
-      image: "https://th.bing.com/th/id/OIP.oS2FEUSHZdbDibbgv8ToGQHaE4?rs=1&pid=ImgDetMain"
+      title: "Industrial Automation Systems",
+      description: "State-of-the-art automation systems designed using PLC, SCADA, and microcontrollers for seamless manufacturing.",
+      features: ["Optimized performance", "Real-time monitoring", "Scalable architecture"],
+      image: "/precision.png"
     },
     {
-      title: "Robotic Automation Systems",
-      description: "Integrated robotic solutions for manufacturing automation",
-      features: ["Flexible programming", "Safety systems", "Quick deployment"],
-      image: "https://th.bing.com/th/id/OIP.ZOdTL-mq2aozrb6T7CFk_wHaEK?rs=1&pid=ImgDetMain"
+      title: "Special-Purpose Machines",
+      description: "Custom-designed machines tailored to unique industrial needs, ensuring high efficiency.",
+      features: ["Tailored solutions", "Industry 4.0 ready", "Robust performance"],
+      image: "./special.png"
     },
     {
-      title: "Special Purpose Machines",
-      description: "Custom-designed machines for specific manufacturing needs",
-      features: ["Tailored solutions", "Industry 4.0 ready", "High efficiency"],
-      image: "https://th.bing.com/th/id/OIP.99LpDZBFmb0kbXrWHlP_fAHaFB?rs=1&pid=ImgDetMain"
+      title: "Precision Engineering Components",
+      description: "High-quality components crafted with advanced CNC and milling technologies for exceptional precision.",
+      features: ["Quality craftsmanship", "Advanced CNC", "Tight tolerances"],
+      image: "/cnc.png"
+    },
+    {
+      title: "Fabrication Services",
+      description: "Comprehensive fabrication solutions including TIG & ARC welding for durable and precise production.",
+      features: ["Expert welding", "High-quality fabrication", "Custom solutions"],
+      image: "/fabrication.png"
+    },
+    {
+      title: "Design Services",
+      description: "Complete mechanical, electrical, and software design services for integrated engineering solutions.",
+      features: ["Innovative designs", "Integrated approach", "Customized solutions"],
+      image: "/design_services.png"
+    },
+    {
+      title: "Consultancy Services",
+      description: "Professional consultancy support for research and development projects across industries.",
+      features: ["Expert advice", "Strategic planning", "Innovative solutions"],
+      image: "/consultancy.png"
     }
   ];
 
@@ -51,9 +72,9 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Our Products</h1>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Our Products & Services</h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              Innovative automation solutions designed for the future of manufacturing
+              Discover our innovative solutions designed for the future of manufacturing.
             </p>
           </motion.div>
         </div>
@@ -112,20 +133,21 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Product Categories */}
+      {/* Product Categories / Services Offered */}
       <section className="py-16">
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-3">
+            {/* Row 1 */}
             <motion.div
               className="text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <Settings className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Special Purpose Machines</h3>
+              <Gauge className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Industrial Automation</h3>
               <p className="mt-2 text-muted-foreground">
-                Custom-designed solutions for specific manufacturing needs
+                Advanced systems using PLC, SCADA, and microcontrollers.
               </p>
             </motion.div>
             <motion.div
@@ -134,10 +156,10 @@ export default function ProductsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <Cpu className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">CNC Solutions</h3>
+              <Settings className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Special-Purpose Machines</h3>
               <p className="mt-2 text-muted-foreground">
-                High-precision machining for complex components
+                Custom machines tailored to unique industrial needs.
               </p>
             </motion.div>
             <motion.div
@@ -146,10 +168,47 @@ export default function ProductsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <Gauge className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Automation Systems</h3>
+              <Cpu className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Precision Components</h3>
               <p className="mt-2 text-muted-foreground">
-                Integrated solutions for manufacturing automation
+                High-quality components with advanced CNC and milling.
+              </p>
+            </motion.div>
+            {/* Row 2 */}
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+            >
+              <LucidePenTool className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Fabrication Services</h3>
+              <p className="mt-2 text-muted-foreground">
+                TIG &amp; ARC welding and precision fabrication.
+              </p>
+            </motion.div>
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}
+            >
+              <Edit3 className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Design Services</h3>
+              <p className="mt-2 text-muted-foreground">
+                Integrated mechanical, electrical, and software design.
+              </p>
+            </motion.div>
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 }}
+            >
+              <Lightbulb className="mx-auto h-12 w-12 text-primary" />
+              <h3 className="mt-4 text-xl font-bold">Consultancy Services</h3>
+              <p className="mt-2 text-muted-foreground">
+                Expert guidance for R&amp;D and strategic innovation.
               </p>
             </motion.div>
           </div>

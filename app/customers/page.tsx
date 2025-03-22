@@ -6,55 +6,44 @@ import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 
 export default function CustomersPage() {
+  // Updated customer testimonials reflecting prestigious client partnerships.
   const customers = [
     {
-      name: "Tech Manufacturing Ltd",
-      logo: "https://jos.com.my/wp-content/uploads/2022/07/hightech-case.jpg",
-      testimonial: "YVS Mechotronics has transformed our manufacturing process with their innovative automation solutions.",
-      author: "Raju",
-      position: "Operations Director"
+      name: "Nuclear Fuel Complex",
+      logo: "/nuclear.png",
+      testimonial: "YVS Mechatronics' state-of-the-art automation solutions have significantly optimized our operational efficiency.",
+      author: "Dr. Anil Kumar",
+      position: "Chief Engineer"
     },
     {
-      name: "Precision Industries",
-      logo: "https://d33wubrfki0l68.cloudfront.net/5d31504bab980e9473485fdf1d28abdd2aea1ff3/b5e1f/images/industries/precision-engineering.jpg",
-      testimonial: "The quality and precision of their CNC machining services are unmatched in the industry.",
-      author: "Ravi",
+      name: "Hindustan Aeronautics Limited",
+      logo: "/HAL.png",
+      testimonial: "Their precision engineering and custom special-purpose machines have been instrumental in enhancing our production quality.",
+      author: "Mr. Suresh Rao",
       position: "Production Manager"
     },
     {
-      name: "Global Automation Corp",
-      logo: "https://iconape.com/wp-content/png_logo_vector/global-automation.png",
-      testimonial: "Their special purpose machines have significantly improved our production efficiency.",
-      author: "Ramu",
+      name: "Defence Research and Development Organisation",
+      logo: "/drdo.png",
+      testimonial: "YVS Mechatronics consistently delivers innovative and reliable solutions that meet our high standards.",
+      author: "Ms. Rekha Singh",
       position: "Technical Director"
     }
   ]
 
-  // Define a robust array of client logos
+  // Updated client logos array to showcase key industry partners.
   const clientLogos = [
     {
-      src: "https://th.bing.com/th/id/OIP.lOtXe45g6usFzKe4MTAYDwHaF-?rs=1&pid=ImgDetMain",
-      alt: "Client Logo 1"
+      src: "/nuclear_logo.png",
+      alt: "Nuclear Fuel Complex"
     },
     {
-      src: "https://cdn4.vectorstock.com/i/1000x1000/94/73/robot-arm-icon-machine-design-graphic-vector-9769473.jpg",
-      alt: "Client Logo 2"
+      src: "/hal_logo.png",
+      alt: "Hindustan Aeronautics Limited"
     },
     {
-      src: "https://static.vecteezy.com/system/resources/previews/026/510/938/large_2x/modern-lettermark-logo-editable-and-easy-to-custom-minimal-logo-design-vector.jpg",
-      alt: "Client Logo 3"
-    },
-    {
-      src: "https://thumbs.dreamstime.com/z/industrial-color-palette-guide-paint-samples-catalog-grey-background-selective-focus-271831554.jpg",
-      alt: "Client Logo 4"
-    },
-    {
-      src: "https://th.bing.com/th/id/OIP.JXif4pP4Mv7suibIssBC_QHaD4?rs=1&pid=ImgDetMain",
-      alt: "Client Logo 5"
-    },
-    {
-      src: "https://thumbs.dreamstime.com/b/technology-company-emblem-emblem-representing-technology-technology-company-emblem-emblem-representing-technology-319695553.jpg",
-      alt: "Client Logo 6"
+      src: "/drdo_logo.png",
+      alt: "Defence Research and Development Organisation"
     }
   ]
 
@@ -76,9 +65,9 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Our Customers</h1>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              Trusted by industry leaders worldwide for delivering excellence in automation
+              Trusted by industry leaders for delivering excellence in automation and precision engineering.
             </p>
           </motion.div>
         </div>
@@ -101,7 +90,7 @@ export default function CustomersPage() {
                       <img
                         src={customer.logo}
                         alt={customer.name}
-                        className="h-12 w-auto object-contain"
+                        className="h-40 w-auto object-contain rounded-lg"
                       />
                     </div>
                     <div className="flex mb-4">
@@ -137,16 +126,12 @@ export default function CustomersPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.15, type: 'spring', stiffness: 100 }}
               >
-                {/* 
-                  Using Next.js Image component for optimized loading.
-                  If an image fails to load, consider implementing a fallback mechanism.
-                */}
                 <Image
                   src={logo.src}
                   alt={logo.alt}
                   width={150}
                   height={60}
-                  className="object-contain grayscale hover:grayscale-0 transition duration-300"
+                  className="object-contain grayscale hover:grayscale-0 transition duration-300 cursor-pointer"
                 />
               </motion.div>
             ))}
