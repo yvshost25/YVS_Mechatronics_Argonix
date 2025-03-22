@@ -64,7 +64,7 @@ export default function AboutPage() {
           </div>
 
           {/* Specialization & Employees */}
-          <div className="grid gap-8 items-center">
+          <div className="grid gap-8 items-center mt-5">
             <motion.div
               className="space-y-4"
               initial={{ opacity: 0, x: -20 }}

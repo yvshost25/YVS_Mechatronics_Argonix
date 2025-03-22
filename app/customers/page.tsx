@@ -65,8 +65,8 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-extrabold text-gray-400 tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
-            <p className="mt-6 text-lg text-gray-300">
+            <h1 className="text-4xl font-semibold tracking-tight dark:text-black sm:text-6xl">Our Esteemed Clients</h1>
+            <p className="mt-6 text-lg dark:text-black">
               Trusted by industry leaders for delivering excellence in automation and precision engineering.
             </p>
           </motion.div>

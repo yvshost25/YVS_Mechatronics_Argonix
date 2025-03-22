@@ -36,7 +36,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background py-12 sm:py-16 lg:py-20">
-      <div className="container px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact YVS Mechatronics</h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -44,7 +44,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-7xl gap-x-8 gap-y-12 lg:grid-cols-2">
+        <div className="mx-auto mt-16 grid max-w-7xl gap-x-8 gap-y-12">
           {/* Contact Information */}
           <div className="space-y-8">
             <div>

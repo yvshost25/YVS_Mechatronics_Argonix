@@ -139,11 +139,11 @@ export default function ProductsPage() {
           <Carousel className="mx-auto max-w-5xl relative">
             <CarouselContent className="overflow-visible">
               {products.map((product, index) => (
-                <CarouselItem key={index} className="w-full sm:w-auto">
+                <CarouselItem key={index} className="w-[500px] h-[500px]">
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.2 }}
+                    initial={{ x: "100%" }}
+                    animate={{ x: "-100%" }}
+                    transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
                   >
                     <Card className="mb-4">
                       <CardContent className="p-6">

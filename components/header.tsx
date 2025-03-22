@@ -7,6 +7,7 @@ import { Cog, Menu, X, LogIn, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { useAuth } from '@/lib/auth'
+import Image from 'next/image'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -31,7 +32,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <Cog className="h-8 w-8" />
+              <Image src={"/logo.png"}  className="rounded-sm" alt='logo' height={65} width={65}/>
               <span className="hidden text-xl font-bold sm:inline-block">
                 YVS MECHATRONICS
               </span>
