@@ -17,7 +17,7 @@ const Header = () => {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Customers', href: '/customers' },
-    { name: 'Products', href: '/products' },
+    { name: 'Services', href: '/services' },
   ]
 
   const handleLogout = () => {

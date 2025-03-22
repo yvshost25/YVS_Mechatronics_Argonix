@@ -54,7 +54,7 @@ export default function CustomersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background flex-col">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -130,8 +130,9 @@ export default function CustomersPage() {
                   src={logo.src}
                   alt={logo.alt}
                   width={150}
-                  height={60}
-                  className="object-contain md:grayscale hover:grayscale-0 transition duration-300 cursor-pointer"
+                  height={150}
+                  className="object-contain transition duration-300 cursor-pointer"
+                  
                 />
               </motion.div>
             ))}
