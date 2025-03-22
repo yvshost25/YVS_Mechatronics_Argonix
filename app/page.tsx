@@ -16,7 +16,7 @@ export default function Home() {
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
               Established in 2020, YVS Mechatronics is a trusted name in industrial automation, special-purpose machines, and precision engineering solutions. We serve industries ranging from manufacturing and automotive to aerospace and SMEs.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10 flex flex-col lg:flex-row items-center justify-center gap-x-6 gap-3">
               <Button size="lg" asChild>
                 <Link href="/products">
                   Explore Our Solutions
