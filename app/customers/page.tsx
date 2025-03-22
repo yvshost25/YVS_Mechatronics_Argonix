@@ -85,7 +85,7 @@ export default function CustomersPage() {
                 transition={{ delay: index * 0.2 }}
               >
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 h-[400px] w-full">
                     <div className="mb-4">
                       <img
                         src={customer.logo}
