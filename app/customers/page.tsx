@@ -117,7 +117,7 @@ export default function CustomersPage() {
       <section className="py-16 bg-background">
         <div className="container px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Trusted By Industry Leaders</h2>
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4 items-center">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3 items-center">
             {clientLogos.map((logo, index) => (
               <motion.div
                 key={index}
@@ -131,7 +131,7 @@ export default function CustomersPage() {
                   alt={logo.alt}
                   width={150}
                   height={60}
-                  className="object-contain grayscale hover:grayscale-0 transition duration-300 cursor-pointer"
+                  className="object-contain md:grayscale hover:grayscale-0 transition duration-300 cursor-pointer"
                 />
               </motion.div>
             ))}
