@@ -98,7 +98,7 @@ export default function Home() {
             className="flex gap-6"
             initial={{ x: "100%" }}
             animate={{ x: "-100%" }}
-            transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
           >
             {services.map((service, index) => (
               <div key={index} className="flex-none w-[350px] bg-card p-6 shadow-lg rounded-lg">
