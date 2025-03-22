@@ -113,7 +113,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
+      <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center" style={{ backgroundImage: "url('/services_bg.png')" }}>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -122,10 +122,10 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <h1 className="text-4xl font-extrabold text-gray-400 tracking-tight sm:text-6xl">
               Our Services
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <p className="mt-6 text-lg text-gray-300">
               Discover our innovative solutions designed for the future of manufacturing. At YVS Mechatronics, we deliver cutting-edge industrial automation, custom special-purpose machines, and precision engineering services using advanced CNC, milling, and welding technologies. Our expert team crafts efficient, scalable, and reliable solutions tailored to your industrial needs.
             </p>
 

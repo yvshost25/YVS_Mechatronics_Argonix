@@ -56,7 +56,7 @@ export default function CustomersPage() {
   return (
     <div className="flex min-h-screen bg-background flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
+      <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center opacity-100" style={{ backgroundImage: "url('/customer.png')" }}>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -65,8 +65,8 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <h1 className="text-4xl font-extrabold text-gray-400 tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
+            <p className="mt-6 text-lg text-gray-300">
               Trusted by industry leaders for delivering excellence in automation and precision engineering.
             </p>
           </motion.div>

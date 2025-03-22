@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Award, Users, Target, Lightbulb, Zap } from "lucide-react"
+import { motion } from "framer-motion";
+import { Award, Users, Target, Lightbulb, Zap } from "lucide-react";
 
 export default function AboutPage() {
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 },
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container px-4 sm:px-6 lg:px-8">
+      {/* Hero Section with Background Image */}
+      <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center" style={{ backgroundImage: "url('/about_bg.png')" }}>
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            className="mx-auto max-w-2xl text-center"
+            className="mx-auto max-w-2xl text-center text-white"
             initial={fadeIn.initial}
             animate={fadeIn.animate}
             transition={fadeIn.transition}
@@ -25,7 +25,7 @@ export default function AboutPage() {
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
               About YVS Mechatronics
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <p className="mt-6 text-lg">
               Established in 2020, YVS Mechatronics is at the forefront of industrial automation, special-purpose machines, and precision engineering. Our passion for innovation and excellence drives us to deliver state-of-the-art solutions that transform manufacturing, automotive, aerospace, and SME sectors.
             </p>
           </motion.div>
@@ -35,8 +35,8 @@ export default function AboutPage() {
       {/* Vision, Mission, Specialization & Employees Section */}
       <section className="py-16 bg-muted/50">
         <div className="container px-4 sm:px-6 lg:px-8 space-y-16">
-          {/* Row 1: Vision & Mission */}
-          <div className="grid gap-8 items-center">
+          {/* Vision & Mission */}
+          <div className="grid gap-8 items-center justify-end">
             <motion.div
               className="space-y-4"
               initial={{ opacity: 0, x: -20 }}
@@ -63,11 +63,10 @@ export default function AboutPage() {
             </motion.div>
           </div>
 
-          {/* Row 2: Specialization & Employees */}
+          {/* Specialization & Employees */}
           <div className="grid gap-8 items-center">
-            {/* Reverse order on larger screens */}
             <motion.div
-              className="order-2 lg:order-1 space-y-4"
+              className="space-y-4"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -79,7 +78,7 @@ export default function AboutPage() {
               </p>
             </motion.div>
             <motion.div
-              className="order-1 lg:order-2 space-y-4"
+              className="space-y-4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
@@ -94,7 +93,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Company History */}
+      {/* Company History Section with Background */}
+
       <section className="py-16">
         <div className="container px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -130,6 +130,7 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+
     </div>
-  )
+  );
 }
