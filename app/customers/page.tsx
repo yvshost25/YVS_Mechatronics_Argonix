@@ -55,8 +55,8 @@ export default function CustomersPage() {
 
   return (
     <div className="flex min-h-screen bg-background flex-col">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center opacity-100" style={{ backgroundImage: "url('/customer.png')" }}>
+      {/* Full-Width Hero Image */}
+      <section className="relative overflow-hidden py-10 sm:py-32">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -65,13 +65,21 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-semibold tracking-tight dark:text-black sm:text-6xl">Our Esteemed Clients</h1>
-            <p className="mt-6 text-lg dark:text-black">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
+            <p className="mt-4 text-muted-foreground text-lg">
               Trusted by industry leaders for delivering excellence in automation and precision engineering.
             </p>
           </motion.div>
         </div>
       </section>
+      <div className="relative w-full h-[500px]">
+        <Image
+          src="/customer.png"
+          alt="customer"
+          fill
+          className="w-full h-[300px] object-contain"
+        />
+      </div>
 
       {/* Testimonials */}
       <section className="py-16 bg-muted/50">
@@ -131,8 +139,7 @@ export default function CustomersPage() {
                   alt={logo.alt}
                   width={150}
                   height={150}
-                  className="object-contain transition duration-300 cursor-pointer"
-                  
+                  className="object-contain transition duration-300 cursor-pointer rounded-full"
                 />
               </motion.div>
             ))}

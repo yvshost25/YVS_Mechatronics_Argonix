@@ -1,7 +1,29 @@
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
-import Link from 'next/link'
+"use client";
+
+import { usePathname } from "next/navigation";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isServicePage = pathname.includes("/service");
+
+  // Helper function to scroll to a specific section by ID
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // When on a service page, quick links will redirect to home ("/")
+  const handleLinkClick = (sectionId: string) => {
+    if (isServicePage) {
+      window.location.href = "/";
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
+
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -10,24 +32,36 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={() => handleLinkClick("about")}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   About Us
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={() => handleLinkClick("services")}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   Products
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/customers" className="text-sm text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={() => handleLinkClick("customers")}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   Customers
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={() => handleLinkClick("contact")}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   Contact
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -35,11 +69,10 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <ul className="mt-4 space-y-2">
               <li className="text-sm text-muted-foreground">
-              Shed No. 19 & 20, Phase-II, IDA, Cherlapally, Kapra
+                Shed No. 19 &amp; 20, Phase-II, IDA, Cherlapally, Kapra
               </li>
               <li className="text-sm text-muted-foreground">
-              Hyderabad,
-              Medchal Malkajgiri Dist- 500051, Telangana State
+                Hyderabad, Medchal Malkajgiri Dist- 500051, Telangana State
               </li>
               <li className="text-sm text-muted-foreground">
                 Email: info@yvsmechotronics.com
@@ -74,7 +107,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
