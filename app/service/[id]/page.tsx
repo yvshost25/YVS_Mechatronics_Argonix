@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 }
 
 interface ServiceDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const serviceData: Record<string, {
@@ -116,7 +116,7 @@ const serviceData: Record<string, {
 };
 
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
-  const { id } = params;
+  const { id } =  await params;
   const service = serviceData[id];
 
   if (!service) {
