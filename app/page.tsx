@@ -16,10 +16,10 @@ export default function Home() {
       {/* Hero Section with Background Image */}
       <section id="hero" className="relative overflow-hidden bg-background py-20 sm:py-32">
         <Image
-          src="/home_bg.png"
+          src="/design_services.png"
           alt="Fabrication background"
           fill
-          className="absolute inset-0 object-cover dark:opacity-20"
+          className="absolute inset-0 object-cover dark:opacity-30"
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
