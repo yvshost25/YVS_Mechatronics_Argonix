@@ -16,6 +16,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -192,9 +193,11 @@ export default function ProductsPage() {
                           </Button>
                         </div>
                         <div className="relative aspect-video overflow-hidden rounded-lg">
-                          <img
+                          <Image
                             src={product.image}
                             alt={product.title}
+                            height={250}
+                            width={250}
                             className="object-cover w-full h-full"
                           />
                         </div>

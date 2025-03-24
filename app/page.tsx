@@ -12,7 +12,7 @@ import ContactPage from "./contact/page";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Hero Section with Background Image */}
       <section id="hero" className="relative overflow-hidden bg-background py-20 sm:py-32">
         <Image
