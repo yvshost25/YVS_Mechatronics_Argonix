@@ -184,7 +184,7 @@ export default function ProductsPage() {
             // Small screen: scrollable container
             <div
               ref={containerRef}
-              className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory"
+              className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hidden overflow-y-hidden"
               style={{ width: carouselWidth }}
             >
               {products.map((product, index) => (
@@ -193,7 +193,7 @@ export default function ProductsPage() {
                   className="min-w-full snap-center"
                   style={{ height: 500 }}
                 >
-                  <Card className="mb-4">
+                  <Card className="mb-4 h-[550px]">
                     <CardContent className="p-6">
                       <div className="grid gap-6 md:grid-cols-2">
                         <div className="space-y-4">
