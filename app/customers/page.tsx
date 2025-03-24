@@ -77,7 +77,7 @@ export default function CustomersPage() {
           src="/customer.png"
           alt="customer"
           fill
-          className="w-full h-[300px] object-contain"
+          className="w-full h-[500px] object-contain"
         />
       </div>
 
@@ -95,10 +95,12 @@ export default function CustomersPage() {
                 <Card>
                   <CardContent className="p-6 h-[400px] w-full">
                     <div className="mb-4">
-                      <img
+                      <Image
                         src={customer.logo}
                         alt={customer.name}
-                        className="h-40 w-auto object-contain rounded-lg"
+                        height={40}
+                        width={40}
+                        className="h-40 w-auto object-contain rounded-xl"
                       />
                     </div>
                     <div className="flex mb-4">
