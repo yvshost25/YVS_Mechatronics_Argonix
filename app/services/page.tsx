@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   ChevronLeft,
@@ -16,7 +16,6 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -103,10 +102,18 @@ export default function ProductsPage() {
   const autoAdvanceDelay = 3000;
   // Carousel width state to track full viewport width.
   const [carouselWidth, setCarouselWidth] = useState(0);
+  // State to determine if screen is small.
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  // Ref for scrollable container on small screens.
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Set carousel width on mount and update on resize.
+  // Set carousel width and small screen flag on mount and update on resize.
   useEffect(() => {
-    const updateWidth = () => setCarouselWidth(window.innerWidth);
+    const updateWidth = () => {
+      const width = window.innerWidth;
+      setCarouselWidth(width);
+      setIsSmallScreen(width < 768); // Tailwind md breakpoint (768px)
+    };
     updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
@@ -120,7 +127,17 @@ export default function ProductsPage() {
     return () => clearTimeout(timer);
   }, [activeIndex, products.length]);
 
-  // Handler for manual navigation.
+  // If on a small screen, scroll the container when activeIndex changes.
+  useEffect(() => {
+    if (isSmallScreen && containerRef.current) {
+      containerRef.current.scrollTo({
+        left: activeIndex * carouselWidth,
+        behavior: "smooth",
+      });
+    }
+  }, [activeIndex, carouselWidth, isSmallScreen]);
+
+  // Handler for manual navigation (only used on large screens).
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % products.length);
   };
@@ -162,16 +179,20 @@ export default function ProductsPage() {
 
       {/* Featured Products Carousel */}
       <section className="py-16 bg-muted/50 relative">
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Carousel container set to full viewport width */}
-          <div className="relative overflow-hidden" style={{ width: carouselWidth }}>
-            <motion.div
-              className="flex"
-              animate={{ x: -activeIndex * carouselWidth }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        <div>
+          {isSmallScreen ? (
+            // Small screen: scrollable container
+            <div
+              ref={containerRef}
+              className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory"
+              style={{ width: carouselWidth }}
             >
               {products.map((product, index) => (
-                <div key={index} className="min-w-full" style={{ height: 500 }}>
+                <div
+                  key={index}
+                  className="min-w-full snap-center"
+                  style={{ height: 500 }}
+                >
                   <Card className="mb-4">
                     <CardContent className="p-6">
                       <div className="grid gap-6 md:grid-cols-2">
@@ -188,16 +209,17 @@ export default function ProductsPage() {
                               </li>
                             ))}
                           </ul>
-                          <Button className="w-full" onClick={() => handleLearnMore(product.slug)}>
+                          <Button
+                            className="w-full"
+                            onClick={() => handleLearnMore(product.slug)}
+                          >
                             Learn More
                           </Button>
                         </div>
                         <div className="relative aspect-video overflow-hidden rounded-lg">
-                          <Image
+                          <img
                             src={product.image}
                             alt={product.title}
-                            height={250}
-                            width={250}
                             className="object-cover w-full h-full"
                           />
                         </div>
@@ -206,21 +228,68 @@ export default function ProductsPage() {
                   </Card>
                 </div>
               ))}
-            </motion.div>
-          </div>
-          {/* Manual Navigation Controls using arrow icons */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-700/70 text-white p-3 rounded-full hover:bg-gray-800 transition"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-700/70 text-white p-3 rounded-full hover:bg-gray-800 transition"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
+            </div>
+          ) : (
+            // Large screen: animated carousel with manual navigation buttons
+            <div className="relative overflow-hidden" style={{ width: carouselWidth }}>
+              <motion.div
+                className="flex"
+                animate={{ x: -activeIndex * carouselWidth }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {products.map((product, index) => (
+                  <div key={index} className="min-w-full" style={{ height: 500 }}>
+                    <Card className="mb-4">
+                      <CardContent className="p-6">
+                        <div className="grid gap-6 md:grid-cols-2">
+                          <div className="space-y-4">
+                            <h2 className="text-2xl font-bold">{product.title}</h2>
+                            <p className="text-muted-foreground">
+                              {product.description}
+                            </p>
+                            <ul className="space-y-2">
+                              {product.features.map((feature, i) => (
+                                <li key={i} className="flex items-center gap-2">
+                                  <CheckCircle className="h-4 w-4 text-primary" />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                            <Button
+                              className="w-full"
+                              onClick={() => handleLearnMore(product.slug)}
+                            >
+                              Learn More
+                            </Button>
+                          </div>
+                          <div className="relative aspect-video overflow-hidden rounded-lg">
+                            <img
+                              src={product.image}
+                              alt={product.title}
+                              className="object-cover w-full h-full"
+                            />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </motion.div>
+              {/* Manual Navigation Controls */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-700/70 text-white p-3 rounded-full hover:bg-gray-800 transition"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-700/70 text-white p-3 rounded-full hover:bg-gray-800 transition"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
