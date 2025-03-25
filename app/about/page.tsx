@@ -8,6 +8,7 @@ import {
 } from "@/components/magicui/terminal";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { TextAnimate } from "@/components/magicui/text-animate";
+import Image from "next/image";
 
 export default function AboutPage() {
   const fadeIn = {
@@ -19,12 +20,17 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Background Image */}
-      {/* <section
-        className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center"
-        style={{ backgroundImage: "url('/about_bg.png')" }}
-      > */}
       <section
-        className="relative overflow-hidden py-20 sm:py-32">
+        className="relative overflow-hidden py-20 sm:py-32"
+      >
+        <Image
+          src="/images/about_bg.png"
+          alt="Fabrication background"
+          fill
+          className="absolute inset-0 object-cover dark:opacity-30"
+        />
+        {/* <section
+        className="relative overflow-hidden py-20 sm:py-32"> */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
@@ -32,12 +38,12 @@ export default function AboutPage() {
             animate={fadeIn.animate}
             transition={fadeIn.transition}
           >
-            <h1 className="text-3xl font-bold sm:text-6xl">
+            <h1 className="text-3xl font-bold sm:text-6xl text-white">
               <TextAnimate startOnView>
                 About YVS Mechatronics
               </TextAnimate>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <p className="mt-6 text-lg text-white">
               We at YVS Mechatronics are at the forefront of industrial automation,
               special-purpose machines, and precision engineering. Our passion for
               innovation and excellence drives us to deliver state-of-the-art solutions

@@ -16,21 +16,21 @@ export default function Home() {
       {/* Hero Section with Background Image */}
       <BlurFade delay={0.3} inView>
         <section id="hero" className="relative overflow-hidden py-20 sm:py-32 bg-muted/50">
-          {/* <Image
-            src="/design_services.png"
+          <Image
+            src="/images/hero_bg.png"
             alt="Fabrication background"
             fill
             className="absolute inset-0 object-cover dark:opacity-30"
-          /> */}
+          />
           <div className="absolute inset-0" />
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-6xl">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-6xl text-white">
                 <TextAnimate startOnView>
                   Empowering Industries with Innovative Engineering
                 </TextAnimate>
               </h1>
-              <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              <p className="mt-6 text-lg leading-8 text-muted/100 dark:text-white">
                 YVS Mechatronics is a trusted name in industrial automation, special-purpose machines, and precision engineering solutions.
               </p>
               <div className="mt-10 flex flex-col lg:flex-row items-center justify-center gap-x-6 gap-3">

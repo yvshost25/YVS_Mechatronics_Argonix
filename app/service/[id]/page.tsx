@@ -140,7 +140,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
           alt={service.title}
           width={300}
           height={300}
-          className="w-full h-[500px] object-cover rounded-lg shadow-lg"
+          className="w-full h-[500px] object-fit rounded-lg shadow-lg"
         />
       </div>
       <div className="mb-8">
