@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { Star } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
+import { ShineBorder } from "@/components/magicui/shine-border"
+import { TextAnimate } from "@/components/magicui/text-animate"
 
 export default function CustomersPage() {
   // Updated customer testimonials reflecting prestigious client partnerships.
@@ -65,7 +67,11 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">Our Esteemed Clients</h1>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+              <TextAnimate animation="blurInUp" by="character" startOnView>
+                Our Esteemed Clients
+              </TextAnimate>
+            </h1>
             <p className="mt-4 text-muted-foreground text-lg">
               Trusted by industry leaders for delivering excellence in automation and precision engineering.
             </p>
@@ -126,7 +132,11 @@ export default function CustomersPage() {
       {/* Client Logos */}
       <section className="py-16 bg-background">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Trusted By Industry Leaders</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <TextAnimate animation="blurInUp" by="character" startOnView>
+              Trusted By Industry Leaders
+            </TextAnimate>
+          </h2>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3 items-center">
             {clientLogos.map((logo, index) => (
               <motion.div

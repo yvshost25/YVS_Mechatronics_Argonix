@@ -7,6 +7,7 @@ import {
   TypingAnimation,
 } from "@/components/magicui/terminal";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { TextAnimate } from "@/components/magicui/text-animate";
 
 export default function AboutPage() {
   const fadeIn = {
@@ -31,8 +32,10 @@ export default function AboutPage() {
             animate={fadeIn.animate}
             transition={fadeIn.transition}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              About YVS Mechatronics
+            <h1 className="text-3xl font-bold sm:text-6xl">
+              <TextAnimate startOnView>
+                About YVS Mechatronics
+              </TextAnimate>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
               We at YVS Mechatronics are at the forefront of industrial automation,
@@ -115,7 +118,11 @@ export default function AboutPage() {
             transition={{ delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-8">Our Journey</h2>
+            <h2 className="text-3xl font-bold mb-8">
+              <TextAnimate animation="blurInUp" by="character" startOnView>
+                Our Journey
+              </TextAnimate>
+            </h2>
             <div className="space-y-8">
               <BlurFade delay={0.2} inView>
                 {/* Timeline Event: 2020 - Foundation */}

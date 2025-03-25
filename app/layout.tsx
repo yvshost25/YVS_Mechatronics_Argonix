@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import 'normalize.css/normalize.css'
+import { Pointer } from '@/components/magicui/pointer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,7 +38,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main>{children}</main>
+          <main>
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

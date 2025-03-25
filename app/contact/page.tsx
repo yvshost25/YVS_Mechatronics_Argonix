@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPin, Mail, Send } from "lucide-react"
+import { TextAnimate } from '@/components/magicui/text-animate'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,11 @@ export default function ContactPage() {
     <div className="min-h-screen bg-muted/50 py-12 sm:py-16 lg:py-20">
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact YVS Mechatronics</h1>
+          <h1 className="text-4xl font-bold sm:text-5xl">
+            <TextAnimate animation="blurInUp" by="character" startOnView>
+              Contact YVS Mechatronics
+            </TextAnimate>
+          </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Get in touch with our team for inquiries about industrial automation, special-purpose machines, precision engineering, and fabrication services.
           </p>
@@ -60,7 +65,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-medium">Address</h3>
                   <p className="text-muted-foreground">
-                    Shed No. 19 &amp; 20, Phase-II, IDA, Cherlapally, Kapra, Hyderabad,<br/>
+                    Shed No. 19 &amp; 20, Phase-II, IDA, Cherlapally, Kapra, Hyderabad,<br />
                     Medchal Malkajgiri Dist- 500051, Telangana State
                   </p>
                 </div>

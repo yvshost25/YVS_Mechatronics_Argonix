@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { MarqueeServices } from "./_components/MarqueeServices";
+import { TextAnimate } from "@/components/magicui/text-animate";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -170,7 +171,9 @@ export default function ProductsPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
-              Our Services
+              <TextAnimate animation="blurInUp" by="character" startOnView>
+                Our Services
+              </TextAnimate>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
               Discover our innovative solutions designed for the future of manufacturing.

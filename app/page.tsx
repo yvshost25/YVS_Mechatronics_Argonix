@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { BlurFade } from "@/components/magicui/blur-fade"; 
+import { BlurFade } from "@/components/magicui/blur-fade";
 import AboutPage from "./about/page";
 import ProductsPage from "./services/page";
 import CustomersPage from "./customers/page";
 import ContactPage from "./contact/page";
+import { TextAnimate } from "@/components/magicui/text-animate";
 
 export default function Home() {
   return (
@@ -24,8 +25,10 @@ export default function Home() {
           <div className="absolute inset-0" />
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
-                Empowering Industries with Innovative Engineering
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-6xl">
+                <TextAnimate startOnView>
+                  Empowering Industries with Innovative Engineering
+                </TextAnimate>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
                 YVS Mechatronics is a trusted name in industrial automation, special-purpose machines, and precision engineering solutions.
@@ -49,34 +52,34 @@ export default function Home() {
           </div>
         </section>
       </BlurFade>
-      
+
       {/* About Us Section */}
       <BlurFade delay={0.3} inView>
         <section id="about">
-          <AboutPage/>
+          <AboutPage />
         </section>
       </BlurFade>
-      
+
       {/* Services Section */}
       <BlurFade delay={0.3} inView>
         <section id="services">
-          <ProductsPage/>
+          <ProductsPage />
         </section>
       </BlurFade>
-      
+
       {/* Customers Section */}
       <BlurFade delay={0.3} inView>
         <section id="customers">
-          <CustomersPage/>
+          <CustomersPage />
         </section>
       </BlurFade>
-      
+
       {/* Contact Section */}
       <BlurFade delay={0.3} inView>
         <section id="contact">
-          <ContactPage/>
+          <ContactPage />
         </section>
       </BlurFade>
-    </div>
+    </div >
   );
 }
