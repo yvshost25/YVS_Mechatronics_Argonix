@@ -67,8 +67,8 @@ export default function CustomersPage() {
             animate={fadeInUp.animate}
             transition={fadeInUp.transition}
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              <TextAnimate animation="blurInUp" by="character" startOnView>
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+              <TextAnimate animation="blurInUp" startOnView>
                 Our Esteemed Clients
               </TextAnimate>
             </h1>
@@ -133,7 +133,7 @@ export default function CustomersPage() {
       <section className="py-16 bg-background">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">
-            <TextAnimate animation="blurInUp" by="character" startOnView>
+            <TextAnimate animation="blurInUp" startOnView>
               Trusted By Industry Leaders
             </TextAnimate>
           </h2>

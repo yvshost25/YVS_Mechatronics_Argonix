@@ -40,7 +40,7 @@ export default function ContactPage() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold sm:text-5xl">
-            <TextAnimate animation="blurInUp" by="character" startOnView>
+            <TextAnimate animation="blurInUp" by="word" startOnView>
               Contact YVS Mechatronics
             </TextAnimate>
           </h1>
