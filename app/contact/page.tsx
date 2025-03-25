@@ -35,7 +35,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-12 sm:py-16 lg:py-20">
+    <div className="min-h-screen bg-muted/50 py-12 sm:py-16 lg:py-20">
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact YVS Mechatronics</h1>

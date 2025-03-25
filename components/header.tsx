@@ -7,6 +7,7 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { ScrollProgress } from './magicui/scroll-progress' 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -23,7 +24,6 @@ const Header = () => {
 
   // Smooth scroll to a section by id
   const scrollToSection = (id: string) => {
-    // Check if element exists
     const section = document.getElementById(id)
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
@@ -31,7 +31,6 @@ const Header = () => {
     // Close mobile menu after clicking
     setIsMenuOpen(false);
   }
-
 
   const handleLinkClick = (sectionId: string) => {
     if (isServicePage) {
@@ -42,28 +41,26 @@ const Header = () => {
     }
   };
 
-
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            {isServicePage ?
+            {isServicePage ? (
               <Link href="/" className="flex items-center space-x-2">
                 <Image src="/logo.png" alt="logo" height={65} width={65} className="rounded-sm" />
                 <span className="hidden text-xl font-bold sm:inline-block">
                   YVS MECHATRONICS
                 </span>
               </Link>
-              :
+            ) : (
               <a href="#hero" onClick={() => scrollToSection('hero')} className="flex items-center space-x-2">
                 <Image src="/logo.png" alt="logo" height={65} width={65} className="rounded-sm" />
                 <span className="hidden text-xl font-bold sm:inline-block">
                   YVS MECHATRONICS
                 </span>
               </a>
-            }
+            )}
           </div>
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-6">
@@ -113,6 +110,8 @@ const Header = () => {
           </div>
         )}
       </nav>
+      {/* Scroll Progress Bar below the navbar */}
+      <ScrollProgress className="top-[65px] h-0.5" />
     </header>
   )
 }

@@ -14,7 +14,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Hero Section with Background Image */}
       <BlurFade delay={0.3} inView>
-        <section id="hero" className="relative overflow-hidden bg-background py-20 sm:py-32">
+        <section id="hero" className="relative overflow-hidden py-20 sm:py-32 bg-muted/50">
           {/* <Image
             src="/design_services.png"
             alt="Fabrication background"
