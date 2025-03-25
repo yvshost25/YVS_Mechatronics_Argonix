@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Hero Section with Background Image */}
-      <BlurFade delay={0.2} inView>
+      <BlurFade delay={0.3} inView>
         <section id="hero" className="relative overflow-hidden bg-background py-20 sm:py-32">
           {/* <Image
             src="/design_services.png"
@@ -51,28 +51,28 @@ export default function Home() {
       </BlurFade>
       
       {/* About Us Section */}
-      <BlurFade delay={0.4} inView>
+      <BlurFade delay={0.3} inView>
         <section id="about">
           <AboutPage/>
         </section>
       </BlurFade>
       
       {/* Services Section */}
-      <BlurFade delay={0.6} inView>
+      <BlurFade delay={0.3} inView>
         <section id="services">
           <ProductsPage/>
         </section>
       </BlurFade>
       
       {/* Customers Section */}
-      <BlurFade delay={0.7} inView>
+      <BlurFade delay={0.3} inView>
         <section id="customers">
           <CustomersPage/>
         </section>
       </BlurFade>
       
       {/* Contact Section */}
-      <BlurFade delay={0.8} inView>
+      <BlurFade delay={0.3} inView>
         <section id="contact">
           <ContactPage/>
         </section>
