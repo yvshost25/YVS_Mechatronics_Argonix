@@ -18,14 +18,15 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Background Image */}
-      <section
+      {/* <section
         className="relative overflow-hidden py-20 sm:py-32 bg-cover bg-center"
         style={{ backgroundImage: "url('/about_bg.png')" }}
-      >
-        <div className="absolute inset-0 bg-black/50"></div>
+      > */}
+      <section
+        className="relative overflow-hidden py-20 sm:py-32">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mx-auto max-w-2xl text-center text-white"
+            className="mx-auto max-w-2xl text-center"
             initial={fadeIn.initial}
             animate={fadeIn.animate}
             transition={fadeIn.transition}
@@ -33,7 +34,7 @@ export default function AboutPage() {
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
               About YVS Mechatronics
             </h1>
-            <p className="mt-6 text-lg">
+            <p className="mt-6 text-lg text-muted-foreground">
               We at YVS Mechatronics are at the forefront of industrial automation,
               special-purpose machines, and precision engineering. Our passion for
               innovation and excellence drives us to deliver state-of-the-art solutions
@@ -112,7 +113,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            viewport={{once:true}}
+            viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold mb-8">Our Journey</h2>
             <div className="space-y-8">

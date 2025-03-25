@@ -56,7 +56,7 @@ export default function CustomersPage() {
   return (
     <div className="flex min-h-screen bg-background flex-col">
       {/* Full-Width Hero Image */}
-      <section className="relative overflow-hidden py-10 sm:py-32">
+      <section className="relative overflow-hidden sm:py-32">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -72,12 +72,12 @@ export default function CustomersPage() {
           </motion.div>
         </div>
       </section>
-      <div className="relative w-full h-[500px]">
+      <div className="relative  items-center w-full h-[400px]">
         <Image
           src="/customer.png"
           alt="customer"
           fill
-          className="w-full h-[500px] object-contain"
+          className="object-contain h-full w-full"
         />
       </div>
 
