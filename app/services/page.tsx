@@ -17,6 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { MarqueeServices } from "./_components/MarqueeServices";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -297,84 +298,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Product Categories / Services Offered */}
-      <section className="py-16">
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-3">
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Gauge className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Industrial Automation</h3>
-              <p className="mt-2 text-muted-foreground">
-                Advanced systems using PLC, SCADA, and microcontrollers.
-              </p>
-            </motion.div>
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <Settings className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Special-Purpose Machines</h3>
-              <p className="mt-2 text-muted-foreground">
-                Custom machines tailored to unique industrial needs.
-              </p>
-            </motion.div>
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              <Cpu className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Precision Components</h3>
-              <p className="mt-2 text-muted-foreground">
-                High-quality components with advanced CNC and milling.
-              </p>
-            </motion.div>
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <LucidePenTool className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Fabrication Services</h3>
-              <p className="mt-2 text-muted-foreground">
-                TIG & ARC welding and precision fabrication.
-              </p>
-            </motion.div>
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}
-            >
-              <Edit3 className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Design Services</h3>
-              <p className="mt-2 text-muted-foreground">
-                Integrated mechanical, electrical, and software design.
-              </p>
-            </motion.div>
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-            >
-              <Lightbulb className="mx-auto h-12 w-12 text-primary" />
-              <h3 className="mt-4 text-xl font-bold">Consultancy Services</h3>
-              <p className="mt-2 text-muted-foreground">
-                Expert guidance for R&amp;D and strategic innovation.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <MarqueeServices/>
     </div>
   );
 }
