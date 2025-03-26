@@ -68,7 +68,7 @@ export default function Home() {
       </BlurFade>
 
       {/* Customers Section */}
-      <BlurFade delay={0.3} inView>
+      <BlurFade inView>
         <section id="customers">
           <CustomersPage />
         </section>
