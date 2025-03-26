@@ -156,16 +156,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section
-        className="relative overflow-hidden py-20 sm:py-32">
-        <Image
-          src="/images/service_bg.png"
-          alt="Fabrication background"
-          fill
-          className="absolute inset-0 object-cover opacity-100 dark:opacity-30"
-        />
-        {/* <section
-        className="relative overflow-hidden py-20 sm:py-32 bg-muted/50"> */}
+      <section className="relative overflow-hidden py-20 sm:py-32">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
@@ -178,7 +169,7 @@ export default function ProductsPage() {
                 Our Services
               </TextAnimate>
             </h1>
-            <p className="mt-6 text-lg text-white">
+            <p className="mt-6 text-lg text-muted-foreground">
               Discover our innovative solutions designed for the future of manufacturing.
               At YVS Mechatronics, we deliver cutting-edge industrial automation,
               custom special-purpose machines, and precision engineering services.

@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { Star } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
-import { ShineBorder } from "@/components/magicui/shine-border"
 import { TextAnimate } from "@/components/magicui/text-animate"
 import { BlurFade } from "@/components/magicui/blur-fade"
 
@@ -79,16 +78,6 @@ export default function CustomersPage() {
           </motion.div>
         </div>
       </section>
-      <BlurFade inView>
-        <div className="relative  items-center w-full h-[400px]">
-          <Image
-            src="/customer.png"
-            alt="customer"
-            fill
-            className="object-contain h-full w-full"
-          />
-        </div>
-      </BlurFade>
       {/* Testimonials */}
       <section className="py-16 bg-muted/50">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
