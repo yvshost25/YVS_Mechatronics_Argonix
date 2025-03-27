@@ -50,7 +50,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Vision */}
             <BlurFade delay={0.2} inView>
-              <Card className="shadow-md">
+              <Card className="shadow-md h-full">
                 <CardContent className="p-6 space-y-4">
                   <Target className="h-12 w-12 text-primary" />
                   <h2 className="text-3xl font-bold">Our Vision</h2>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
             {/* Mission */}
             <BlurFade delay={0.4} inView>
-              <Card className="shadow-md">
+              <Card className="shadow-md h-full">
                 <CardContent className="p-6 space-y-4">
                   <Lightbulb className="h-12 w-12 text-primary" />
                   <h2 className="text-3xl font-bold">Our Mission</h2>
@@ -82,7 +82,7 @@ export default function AboutPage() {
 
             {/* Specialization */}
             <BlurFade delay={0.6} inView>
-              <Card className="shadow-md">
+              <Card className="shadow-md h-full">
                 <CardContent className="p-6 space-y-4">
                   <Zap className="h-12 w-12 text-primary" />
                   <h2 className="text-3xl font-bold">What we are Specialized In</h2>
@@ -98,7 +98,7 @@ export default function AboutPage() {
 
             {/* Team */}
             <BlurFade delay={0.8} inView>
-              <Card className="shadow-md">
+              <Card className="shadow-md h-full">
                 <CardContent className="p-6 space-y-4">
                   <Users className="h-12 w-12 text-primary" />
                   <h2 className="text-3xl font-bold">Our Team</h2>
