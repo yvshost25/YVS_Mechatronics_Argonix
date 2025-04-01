@@ -1,13 +1,15 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import axios from "axios";
+import { ConvexHttpClient } from "convex/browser";
+import { api } from "@/convex/_generated/api";
+
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 interface User {
   name: string;
   email: string;
   role: string;
   imageUrl?: string;
-  password?: string;
 }
 
 interface AuthState {
@@ -30,27 +32,29 @@ export const useAuth = create<AuthState>()(
 
       login: async (name: string, email: string, password: string, role: string) => {
         try {
-          const response = await axios.post(
-            `/api/login`,
-            { name, email, password, role },
-          );
+          // Query Convex to get the user by email
+          const user = await convex.query(api.employees.getEmployeeByEmail, { email });
 
-          if (response.status !== 200) {
-            console.error("Login failed with status:", response.status);
+          // Validate user credentials
+          if (!user || user.password !== password || user.role !== role || user.name !== name) {
+            console.error("Invalid credentials");
             return false;
           }
 
-          const user = response.data;
-          set({ user, isAuthenticated: true });
+          // Set the user in the state
+          set({
+            user: {
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              imageUrl: user.imageUrl,
+            },
+            isAuthenticated: true,
+          });
+
           return true;
-        } catch (error: any) {
-          if (error.response) {
-            console.error("Server responded with:", error.response.status, error.response.data);
-          } else if (error.request) {
-            console.error("No response received:", error.request);
-          } else {
-            console.error("Error setting up request:", error.message);
-          }
+        } catch (error) {
+          console.error("Login error:", error);
           return false;
         }
       },

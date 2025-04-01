@@ -9,16 +9,14 @@ import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 import PdfModal from "../../_components/PdfModal";
-import axios from "axios";
 
 export default function CADFilesPage() {
   const generateUploadUrl = useMutation(api.cad_files.generateUploadUrl);
+  const addCADFileEntryToDb = useMutation(api.cad_files.AddCADFileEntryToDb);
+  const uploadedFiles = useQuery(api.cad_files.GetAllCADFiles) || [];
   const user = useAuth();
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Fetch uploaded files
-  const uploadedFiles = useQuery(api.cad_files.GetAllCADFiles) || [];
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -26,35 +24,32 @@ export default function CADFilesPage() {
 
     setIsUploading(true);
 
-    // Create form data for API submission
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("uploadedBy", user?.user?.email || "unknown");
-
     try {
-      // Generate the upload URL via a Convex mutation
+      // Step 1: Generate the upload URL via Convex mutation
       const postUrl = await generateUploadUrl();
 
-      // Upload the file using axios with the correct content type
-      const result = await axios.post(postUrl, file, {
+      // Step 2: Upload the file to the generated URL
+      const uploadResponse = await fetch(postUrl, {
+        method: "POST",
         headers: { "Content-Type": file.type },
+        body: file,
       });
 
-      // Extract storageId from the response
-      const storageId = result.data.storageId;
-      formData.append("storageId", storageId);
-
-      // Upload file metadata to your Next.js API route using axios
-      const response = await axios.post(
-        `/api/cad-files`,
-        formData
-      );
-
-      if (response.status === 200) {
-        toast("File uploaded successfully!");
-      } else {
-        toast("File upload failed!");
+      if (!uploadResponse.ok) {
+        throw new Error("File upload failed");
       }
+
+      const resultJson = await uploadResponse.json();
+      const storageId = resultJson.storageId;
+
+      // Step 3: Store file metadata in Convex using AddCADFileEntryToDb mutation
+      await addCADFileEntryToDb({
+        storageId,
+        fileName: file.name,
+        uploadedBy: user?.user?.email || "unknown",
+      });
+
+      toast("File uploaded successfully!");
     } catch (error) {
       console.error("Upload error:", error);
       toast("File upload failed!");
