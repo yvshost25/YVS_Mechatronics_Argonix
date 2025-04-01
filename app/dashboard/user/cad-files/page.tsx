@@ -12,12 +12,11 @@ import PdfModal from "../../_components/PdfModal";
 
 export default function CADFilesPage() {
   const generateUploadUrl = useMutation(api.cad_files.generateUploadUrl);
+  const addCADFileEntryToDb = useMutation(api.cad_files.AddCADFileEntryToDb);
+  const uploadedFiles = useQuery(api.cad_files.GetAllCADFiles) || [];
   const user = useAuth();
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Fetch uploaded files
-  const uploadedFiles = useQuery(api.cad_files.GetAllCADFiles) || [];
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -25,34 +24,32 @@ export default function CADFilesPage() {
 
     setIsUploading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("uploadedBy", user?.user?.email || "unknown");
-
     try {
+      // Step 1: Generate the upload URL via Convex mutation
       const postUrl = await generateUploadUrl();
 
-      const result = await fetch(postUrl, {
+      // Step 2: Upload the file to the generated URL
+      const uploadResponse = await fetch(postUrl, {
         method: "POST",
         headers: { "Content-Type": file.type },
         body: file,
       });
 
-      const resultJson = await result.json();
+      if (!uploadResponse.ok) {
+        throw new Error("File upload failed");
+      }
+
+      const resultJson = await uploadResponse.json();
       const storageId = resultJson.storageId;
 
-      formData.append("storageId", storageId);
-
-      const response = await fetch("/api/cad-files", {
-        method: "POST",
-        body: formData,
+      // Step 3: Store file metadata in Convex using AddCADFileEntryToDb mutation
+      await addCADFileEntryToDb({
+        storageId,
+        fileName: file.name,
+        uploadedBy: user?.user?.email || "unknown",
       });
 
-      if (response.ok) {
-        toast("File uploaded successfully!");
-      } else {
-        toast("File upload failed!");
-      }
+      toast("File uploaded successfully!");
     } catch (error) {
       console.error("Upload error:", error);
       toast("File upload failed!");
@@ -102,10 +99,20 @@ export default function CADFilesPage() {
                 <tr key={index} className="border">
                   <td className="border p-2">{file.name}</td>
                   <td className="border p-2 text-center">
-                    <PdfModal fileUrl={file.url} triggerText={<EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />} />
+                    <PdfModal
+                      fileUrl={file.url}
+                      triggerText={
+                        <EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />
+                      }
+                    />
                   </td>
                   <td className="border p-2 text-center">
-                    <a href={file.url} target="_blank" download={file.name} className="flex justify-center">
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      download={file.name}
+                      className="flex justify-center"
+                    >
                       <DownloadIcon className="h-5 w-5 text-green-500 cursor-pointer" />
                     </a>
                   </td>
