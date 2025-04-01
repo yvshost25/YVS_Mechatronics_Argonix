@@ -46,7 +46,7 @@ export default function CADFilesPage() {
 
       // Upload file metadata to your Next.js API route using axios
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/cad-files`,
+        `/api/cad-files`,
         formData
       );
 

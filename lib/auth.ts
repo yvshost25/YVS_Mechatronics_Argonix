@@ -31,9 +31,8 @@ export const useAuth = create<AuthState>()(
       login: async (name: string, email: string, password: string, role: string) => {
         try {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
+            `/api/login`,
             { name, email, password, role },
-            { headers: { "Content-Type": "application/json" } }
           );
 
           if (response.status !== 200) {
