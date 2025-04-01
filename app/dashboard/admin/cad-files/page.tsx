@@ -43,7 +43,7 @@ export default function CADFilesPage() {
 
       formData.append("storageId", storageId);
 
-      const response = await fetch("/api/cad-files", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cad-files`, {
         method: "POST",
         body: formData,
       });
