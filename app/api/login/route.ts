@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       email: user.email,
       role: user.role,
       imageUrl: user.imageUrl,
-    });
+    },{ headers });
   } catch (error) {
     return NextResponse.json({ error: (error as any).message }, { status: 500 });
   }
