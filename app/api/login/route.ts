@@ -18,15 +18,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    return NextResponse.json(
-      {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        imageUrl: user.imageUrl,
-      }
-    );
+    const response = NextResponse.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      imageUrl: user.imageUrl,
+    });
+
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    return response;
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
