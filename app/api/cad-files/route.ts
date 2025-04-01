@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       message: "File uploaded successfully",
       file: addResult,
-    });
+    },{ headers });
   } catch (error) {
     console.error("Error in CAD file upload:", error);
     return NextResponse.json(
