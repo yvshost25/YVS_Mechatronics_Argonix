@@ -1,59 +1,26 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Star } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
-import { TextAnimate } from "@/components/magicui/text-animate"
-import { BlurFade } from "@/components/magicui/blur-fade"
+import { motion } from "framer-motion";
+import { Star } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
+import { TextAnimate } from "@/components/magicui/text-animate";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export default function CustomersPage() {
-  // Updated customer testimonials reflecting prestigious client partnerships.
-  const customers = [
-    {
-      name: "Nuclear Fuel Complex",
-      logo: "/nuclear.png",
-      testimonial: "YVS Mechatronics' state-of-the-art automation solutions have significantly optimized our operational efficiency.",
-      author: "Dr. Anil Kumar",
-      position: "Chief Engineer"
-    },
-    {
-      name: "Hindustan Aeronautics Limited",
-      logo: "/HAL.png",
-      testimonial: "Their precision engineering and custom special-purpose machines have been instrumental in enhancing our production quality.",
-      author: "Mr. Suresh Rao",
-      position: "Production Manager"
-    },
-    {
-      name: "Defence Research and Development Organisation",
-      logo: "/drdo.png",
-      testimonial: "YVS Mechatronics consistently delivers innovative and reliable solutions that meet our high standards.",
-      author: "Ms. Rekha Singh",
-      position: "Technical Director"
-    }
-  ]
+  // Fetch portfolio data using the getPortfolios query
+  const portfolios = useQuery(api.portfolio.getPortfolios) || [];
 
-  // Updated client logos array to showcase key industry partners.
-  const clientLogos = [
-    {
-      src: "/nuclear_logo.png",
-      alt: "Nuclear Fuel Complex"
-    },
-    {
-      src: "/hal_logo.png",
-      alt: "Hindustan Aeronautics Limited"
-    },
-    {
-      src: "/drdo_logo.png",
-      alt: "Defence Research and Development Organisation"
-    }
-  ]
+  // Filter data for testimonials and client logos
+  const testimonials = portfolios.filter((item) => item.logoUrl);
+  const clientLogos = portfolios.filter((item) => item.image);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  }
+    transition: { duration: 0.6 },
+  };
 
   return (
     <div className="flex min-h-screen bg-background flex-col">
@@ -78,11 +45,12 @@ export default function CustomersPage() {
           </motion.div>
         </div>
       </section>
+
       {/* Testimonials */}
       <section className="py-16 bg-muted/50">
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {customers.map((customer, index) => (
+            {testimonials.map((customer, index) => (
               <motion.div
                 key={customer.name}
                 initial={{ opacity: 0, y: 20 }}
@@ -93,7 +61,7 @@ export default function CustomersPage() {
                   <CardContent className="p-6 h-[400px] w-full">
                     <div className="mb-4">
                       <Image
-                        src={customer.logo}
+                        src={customer.logoUrl??''}
                         alt={customer.name}
                         height={40}
                         width={40}
@@ -106,11 +74,10 @@ export default function CustomersPage() {
                       ))}
                     </div>
                     <blockquote className="mb-4 text-muted-foreground">
-                      "{customer.testimonial}"
+                      "{customer.description}"
                     </blockquote>
                     <div>
-                      <p className="font-semibold">{customer.author}</p>
-                      <p className="text-sm text-muted-foreground">{customer.position}</p>
+                      <p className="font-semibold">{customer.name}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -135,11 +102,11 @@ export default function CustomersPage() {
                 className="flex items-center justify-center p-4"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.15, type: 'spring', stiffness: 100 }}
+                transition={{ delay: index * 0.15, type: "spring", stiffness: 100 }}
               >
                 <Image
-                  src={logo.src}
-                  alt={logo.alt}
+                  src={logo.image??''}
+                  alt={logo.name}
                   width={150}
                   height={150}
                   className="object-contain transition duration-300 cursor-pointer rounded-full"
@@ -150,5 +117,5 @@ export default function CustomersPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
