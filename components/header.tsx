@@ -7,12 +7,12 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { ScrollProgress } from './magicui/scroll-progress' 
+import { ScrollProgress } from './magicui/scroll-progress'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const pathname = usePathname();
-  const isServicePage = pathname.includes("/service");
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   // Define your navigation with target IDs (instead of routes)
   const navigation = [
@@ -28,38 +28,38 @@ const Header = () => {
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
     }
-    // Close mobile menu after clicking
-    setIsMenuOpen(false);
   }
 
+  // Handle link click: if not on home page, redirect to "/" with hash.
   const handleLinkClick = (sectionId: string) => {
-    if (isServicePage) {
-      window.location.href = "/";
+    if (!isHomePage) {
+      window.location.href = `/#${sectionId}`
     } else {
-      scrollToSection(sectionId);
-      setIsMenuOpen(false);
+      scrollToSection(sectionId)
     }
-  };
+    setIsMenuOpen(false)
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            {isServicePage ? (
-              <Link href="/" className="flex items-center space-x-2">
-                <Image src="/logo.png" alt="logo" height={65} width={65} className="rounded-sm" />
-                <span className="hidden text-xl font-bold sm:inline-block">
-                  YVS MECHATRONICS
-                </span>
-              </Link>
-            ) : (
+            {/* Use Link for navigation on non-home pages */}
+            {isHomePage ? (
               <a href="#hero" onClick={() => scrollToSection('hero')} className="flex items-center space-x-2">
                 <Image src="/logo.png" alt="logo" height={65} width={65} className="rounded-sm" />
                 <span className="hidden text-xl font-bold sm:inline-block">
                   YVS MECHATRONICS
                 </span>
               </a>
+            ) : (
+              <Link href="/" className="flex items-center space-x-2">
+                <Image src="/logo.png" alt="logo" height={65} width={65} className="rounded-sm" />
+                <span className="hidden text-xl font-bold sm:inline-block">
+                  YVS MECHATRONICS
+                </span>
+              </Link>
             )}
           </div>
           {/* Desktop Navigation */}
@@ -67,7 +67,7 @@ const Header = () => {
             {navigation.map((item) => (
               <button
                 key={item.name}
-                onClick={() => { scrollToSection(item.id); handleLinkClick(item.name) }}
+                onClick={() => handleLinkClick(item.id)}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 {item.name}
@@ -100,7 +100,7 @@ const Header = () => {
               {navigation.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => { scrollToSection(item.id); handleLinkClick(item.name) }}
+                  onClick={() => handleLinkClick(item.id)}
                   className="block px-3 py-2 text-base font-medium text-foreground hover:bg-accent"
                 >
                   {item.name}

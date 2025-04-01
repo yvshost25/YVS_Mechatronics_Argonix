@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import 'normalize.css/normalize.css'
-import { Pointer } from '@/components/magicui/pointer'
+import Provider from './provider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,6 +31,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <meta name='viewport' content='width=device-width, initial-scale=1'></meta>
       <body className={`${inter.className} overflow-x-hidden`}>
+        <Provider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -43,6 +44,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        </Provider>
       </body>
     </html>
   )
