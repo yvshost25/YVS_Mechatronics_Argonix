@@ -11,23 +11,36 @@ export async function POST(req: Request) {
     "Access-Control-Allow-Headers": "Content-Type",
   });
 
-  const { name, email, password, role } = await req.json();
+  if (req.method !== "POST") {
+    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
+  }
 
   try {
+    const { name, email, password, role } = await req.json();
+
+    // Validate required fields
+    if (!name || !email || !password || !role) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
     const user = await convex.query(api.employees.getEmployeeByEmail, { email });
 
-    if (!user || user.password !== password || user.role !== role ||user.name!=name) {
+    if (!user || user.password !== password || user.role !== role || user.name !== name) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    return NextResponse.json({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      imageUrl: user.imageUrl,
-    },{ headers });
+    return NextResponse.json(
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        imageUrl: user.imageUrl,
+      },
+      { headers }
+    );
   } catch (error) {
-    return NextResponse.json({ error: (error as any).message }, { status: 500 });
+    console.error("Server error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

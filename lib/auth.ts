@@ -1,9 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { ConvexHttpClient } from "convex/browser";
 import axios from "axios";
-
-const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 interface User {
   name: string;
@@ -20,8 +17,7 @@ interface AuthState {
     name: string,
     email: string,
     password: string,
-    role: string,
-    imageUrl?: string
+    role: string
   ) => Promise<boolean>;
   logout: () => void;
 }
@@ -40,16 +36,26 @@ export const useAuth = create<AuthState>()(
             { headers: { "Content-Type": "application/json" } }
           );
 
-          if (response.status !== 200) return false;
+          if (response.status !== 200) {
+            console.error("Login failed with status:", response.status);
+            return false;
+          }
 
           const user = response.data;
           set({ user, isAuthenticated: true });
           return true;
-        } catch (error) {
-          console.error("Login error:", error);
+        } catch (error: any) {
+          if (error.response) {
+            console.error("Server responded with:", error.response.status, error.response.data);
+          } else if (error.request) {
+            console.error("No response received:", error.request);
+          } else {
+            console.error("Error setting up request:", error.message);
+          }
           return false;
         }
       },
+
       logout: () => {
         set({ user: null, isAuthenticated: false });
       },
