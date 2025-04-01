@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 import PdfModal from "../../_components/PdfModal";
+import axios from "axios";
 
 export default function CADFilesPage() {
   const generateUploadUrl = useMutation(api.cad_files.generateUploadUrl);
@@ -25,30 +26,31 @@ export default function CADFilesPage() {
 
     setIsUploading(true);
 
+    // Create form data for API submission
     const formData = new FormData();
     formData.append("file", file);
     formData.append("uploadedBy", user?.user?.email || "unknown");
 
     try {
+      // Generate the upload URL via a Convex mutation
       const postUrl = await generateUploadUrl();
 
-      const result = await fetch(postUrl, {
-        method: "POST",
+      // Upload the file using axios with the correct content type
+      const result = await axios.post(postUrl, file, {
         headers: { "Content-Type": file.type },
-        body: file,
       });
 
-      const resultJson = await result.json();
-      const storageId = resultJson.storageId;
-
+      // Extract storageId from the response
+      const storageId = result.data.storageId;
       formData.append("storageId", storageId);
 
-      const response = await fetch("/api/cad-files", {
-        method: "POST",
-        body: formData,
-      });
+      // Upload file metadata to your Next.js API route using axios
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/cad-files`,
+        formData
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         toast("File uploaded successfully!");
       } else {
         toast("File upload failed!");
@@ -102,10 +104,20 @@ export default function CADFilesPage() {
                 <tr key={index} className="border">
                   <td className="border p-2">{file.name}</td>
                   <td className="border p-2 text-center">
-                    <PdfModal fileUrl={file.url} triggerText={<EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />} />
+                    <PdfModal
+                      fileUrl={file.url}
+                      triggerText={
+                        <EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />
+                      }
+                    />
                   </td>
                   <td className="border p-2 text-center">
-                    <a href={file.url} target="_blank" download={file.name} className="flex justify-center">
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      download={file.name}
+                      className="flex justify-center"
+                    >
                       <DownloadIcon className="h-5 w-5 text-green-500 cursor-pointer" />
                     </a>
                   </td>
