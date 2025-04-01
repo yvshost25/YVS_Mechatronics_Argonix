@@ -17,7 +17,8 @@ export default function PortfolioPage() {
     description: "",
     logo: null as File | null,
     storageId: "",
-    image:null as File | null,
+    logo1: null as File | null,
+    storageId1: "",
   });
   const [isCreating, setIsCreating] = useState(false);
 
@@ -27,8 +28,8 @@ export default function PortfolioPage() {
   const portfolios = useQuery(api.portfolio.getPortfolios) || [];
 
   // Function to trigger file input manually
-  const handleFileSelect = () => {
-    document.getElementById("portfolio-logo")?.click();
+  const handleFileSelect = (inputId: string) => {
+    document.getElementById(inputId)?.click();
   };
 
   const handleCreate = async () => {
@@ -39,55 +40,58 @@ export default function PortfolioPage() {
     setIsCreating(true);
 
     try {
-      let storageId = null;
-      let storageId1 = null;
-      if (newPortfolio.logo) {
-        // Generate upload URL from Convex
-        const postUrl = await generateUploadUrl();
+      let storageId: string | null = null;
+      let storageId1: string | null = null;
 
-        // Upload file to storage
+      if (newPortfolio.logo) {
+        const postUrl = await generateUploadUrl();
         const uploadResponse = await fetch(postUrl, {
           method: "POST",
           headers: { "Content-Type": newPortfolio.logo.type },
           body: newPortfolio.logo,
         });
 
+        if (!uploadResponse.ok) {
+          throw new Error("Logo upload failed");
+        }
+
         const resultJson = await uploadResponse.json();
         storageId = resultJson.storageId;
-
-        if (!uploadResponse.ok) {
-          throw new Error("File upload failed");
-        }
       }
 
-      if (newPortfolio.image) {
-        // Generate upload URL from Convex
+      if (newPortfolio.logo1) {
         const postUrl = await generateUploadUrl();
-
-        // Upload file to storage
         const uploadResponse = await fetch(postUrl, {
           method: "POST",
-          headers: { "Content-Type": newPortfolio.image.type },
-          body: newPortfolio.logo,
+          headers: { "Content-Type": newPortfolio.logo1.type },
+          body: newPortfolio.logo1,
         });
+
+        if (!uploadResponse.ok) {
+          throw new Error("Image upload failed");
+        }
 
         const resultJson = await uploadResponse.json();
         storageId1 = resultJson.storageId;
-
-        if (!uploadResponse.ok) {
-          throw new Error("File upload failed");
-        }
       }
+
       // Save portfolio data in Convex
       await addPortfolio({
         name: newPortfolio.name,
         description: newPortfolio.description,
-        storageId: storageId ?? '',
-        storageId1:storageId1??'',
+        storageId: storageId || "",
+        storageId1: storageId1 || "",
       });
 
       toast("Portfolio item created!");
-      setNewPortfolio({ name: "", description: "", logo: null, storageId: "" , image:null});
+      setNewPortfolio({
+        name: "",
+        description: "",
+        logo: null,
+        storageId: "",
+        logo1: null,
+        storageId1: "",
+      });
     } catch (error) {
       console.error("Portfolio creation error:", error);
       toast("Failed to create portfolio item");
@@ -117,11 +121,12 @@ export default function PortfolioPage() {
             }
           />
           <div className="flex justify-between">
+            {/* Logo Upload */}
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
                 disabled={isCreating}
-                onClick={handleFileSelect} // 🔹 Manually trigger file input
+                onClick={() => handleFileSelect("portfolio-logo")}
               >
                 <UploadIcon className="mr-2 h-4 w-4" />
                 {newPortfolio.logo ? "Change Logo" : "Upload Logo"}
@@ -143,30 +148,31 @@ export default function PortfolioPage() {
                 </span>
               )}
             </div>
+
+            {/* Additional Image Upload */}
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
                 disabled={isCreating}
-                onClick={handleFileSelect} // 🔹 Manually trigger file input
+                onClick={() => handleFileSelect("portfolio-logo1")}
               >
                 <UploadIcon className="mr-2 h-4 w-4" />
-                {newPortfolio.logo ? "Change Image" : "Upload Image"}
+                {newPortfolio.logo1 ? "Change Image" : "Upload Image"}
               </Button>
               <input
-                id="portfolio-image"
+                id="portfolio-logo1"
                 type="file"
                 onChange={(e) =>
                   setNewPortfolio({
                     ...newPortfolio,
-                    image: e.target.files?.[0] || null,
+                    logo1: e.target.files?.[0] || null,
                   })
                 }
                 className="hidden"
               />
-
-              {newPortfolio.logo && (
+              {newPortfolio.logo1 && (
                 <span className="text-sm text-gray-600">
-                  {newPortfolio?.image?.name}
+                  {newPortfolio.logo1.name}
                 </span>
               )}
             </div>
@@ -206,7 +212,7 @@ export default function PortfolioPage() {
                           alt={item.name}
                           height={25}
                           width={25}
-                          className="h-10 w-10 object-cover rounded-md flex justify-center"
+                          className="h-10 w-10 object-cover rounded-md"
                         />
                       ) : (
                         "No Logo"
