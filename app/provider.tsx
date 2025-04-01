@@ -1,23 +1,25 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
+import Footer from "@/components/footer";
+import { usePathname } from "next/navigation";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-function Provider({
-    children,
-}: {
-    children: React.ReactNode
-}) {
-    return (
-        <div>
-            <ConvexProvider client={convex}>
-                <Toaster/>
-                {children}
-            </ConvexProvider>
-        </div>
-    )
+function Provider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname(); // Move usePathname inside the component
+  const isDashboard = pathname.includes("/dashboard");
+
+  return (
+    <div>
+      <ConvexProvider client={convex}>
+        <Toaster />
+        {children}
+        {!isDashboard && <Footer />}
+      </ConvexProvider>
+    </div>
+  );
 }
 
-export default Provider
+export default Provider;

@@ -10,6 +10,7 @@ import { useAuth } from "@/lib/auth"
 import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { toast } from "sonner"
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
 export default function EmployeesPage() {
   const generateUploadUrl = useMutation(api.cad_files.generateUploadUrl);
@@ -22,7 +23,7 @@ export default function EmployeesPage() {
     role: "",
     password: "",
     imageUrl: "",
-    storageId:""
+    storageId: ""
   });
   const [isCreating, setIsCreating] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -77,7 +78,7 @@ export default function EmployeesPage() {
 
   // Create new employee
   const handleCreate = async () => {
-    if (!newEmployee.name || !newEmployee.email || !newEmployee.role || !newEmployee.password||!newEmployee.storageId) {
+    if (!newEmployee.name || !newEmployee.email || !newEmployee.role || !newEmployee.password || !newEmployee.storageId) {
       toast("Please fill in all fields");
       return;
     }
@@ -85,7 +86,7 @@ export default function EmployeesPage() {
     try {
       await addEmployeeMutation(newEmployee);
       toast("Employee created successfully!");
-      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId:"" });
+      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId: "" });
     } catch (error) {
       console.error("Employee create error:", error);
       toast("Failed to create employee");
@@ -100,10 +101,10 @@ export default function EmployeesPage() {
     setIsCreating(true);
     try {
       // Pass the employee _id along with updated fields
-      await updateEmployeeMutation({...newEmployee });
+      await updateEmployeeMutation({ ...newEmployee });
       toast("Employee updated successfully!");
       setEditingEmployee(null);
-      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId:"" });
+      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId: "" });
     } catch (error) {
       console.error("Employee update error:", error);
       toast("Failed to update employee");
@@ -132,7 +133,7 @@ export default function EmployeesPage() {
       role: employee.role,
       password: employee.password,
       imageUrl: employee.imageUrl || "",
-      storageId:employee.storageId
+      storageId: employee.storageId
     });
   };
 
@@ -164,12 +165,20 @@ export default function EmployeesPage() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Label>Role</Label>
-            <Input
-              placeholder="Role"
-              value={newEmployee.role}
-              onChange={(e) => setNewEmployee({ ...newEmployee, role: e.target.value })}
-            />
+            <Label htmlFor="role">Role</Label>
+            <Select
+              onValueChange={(value) =>
+                setNewEmployee({ ...newEmployee, role: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select your role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="admin">Admin</SelectItem>
+                <SelectItem value="user">User</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col gap-2">
             <Label>Password</Label>

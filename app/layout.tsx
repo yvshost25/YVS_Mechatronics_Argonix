@@ -42,7 +42,6 @@ export default function RootLayout({
           <main>
             {children}
           </main>
-          <Footer />
         </ThemeProvider>
         </Provider>
       </body>
