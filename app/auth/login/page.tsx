@@ -10,22 +10,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { Loader2 } from "lucide-react"; // Importing a loader spinner
 
 export default function LoginPage() {
-  const {login}=useAuth();
+  const { login } = useAuth();
   const router = useRouter();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     role: "",
     name: ""
   });
+  
+  const [isLoading, setIsLoading] = useState(false); // Loader state
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Start loader
+
     const { name, email, password, role } = formData;
     const success = await login(name, email, password, role);
   
+    setIsLoading(false); // End loader
+
     if (success) {
       toast("Login successful!");
       router.push("/dashboard");
@@ -105,8 +113,13 @@ export default function LoginPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <Button type="submit" className="w-full">
-                Sign in
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  // Spinner icon with animation
+                  <Loader2 className="animate-spin h-5 w-5" />
+                ) : (
+                  "Sign in"
+                )}
               </Button>
             </form>
           </CardContent>
