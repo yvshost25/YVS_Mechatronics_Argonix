@@ -1,24 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { api } from "@/convex/_generated/api";
 import { ConvexHttpClient } from "convex/browser";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-export async function POST(req: Request) {
-  const headers = new Headers({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  });
-
-  if (req.method !== "POST") {
-    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
-  }
-
+export async function POST(req: NextRequest) {
   try {
     const { name, email, password, role } = await req.json();
 
-    // Validate required fields
     if (!name || !email || !password || !role) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
@@ -36,8 +25,7 @@ export async function POST(req: Request) {
         email: user.email,
         role: user.role,
         imageUrl: user.imageUrl,
-      },
-      { headers }
+      }
     );
   } catch (error) {
     console.error("Server error:", error);

@@ -1,17 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    });
-    // Parse the incoming form data.
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const uploadedBy = formData.get("uploadedBy") as string;
@@ -32,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       message: "File uploaded successfully",
       file: addResult,
-    },{ headers });
+    });
   } catch (error) {
     console.error("Error in CAD file upload:", error);
     return NextResponse.json(
