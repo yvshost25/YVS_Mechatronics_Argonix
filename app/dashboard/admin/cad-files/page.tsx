@@ -90,23 +90,20 @@ export default function CADFilesPage() {
             <thead>
               <tr>
                 <th className="border p-2 text-left">File Name</th>
-                <th className="border p-2 text-center">View</th>
-                <th className="border p-2 text-center">Download</th>
+                <th className="border p-2 text-center">View & Download</th>
               </tr>
             </thead>
             <tbody>
               {uploadedFiles.map((file, index) => (
                 <tr key={index} className="border">
                   <td className="border p-2">{file.name}</td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center flex gap-2 justify-center items-center">
                     <PdfModal
                       fileUrl={file.url}
                       triggerText={
                         <EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />
                       }
                     />
-                  </td>
-                  <td className="border p-2 text-center">
                     <a
                       href={file.url}
                       target="_blank"

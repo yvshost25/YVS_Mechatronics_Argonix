@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { UploadIcon, Edit, Trash } from "lucide-react"
-import { useAuth } from "@/lib/auth"
-import { useMutation, useQuery } from "convex/react"
-import { api } from "@/convex/_generated/api"
-import { toast } from "sonner"
+import { useState, useRef } from "react";
+import bcrypt from "bcryptjs"; // Import bcryptjs
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { UploadIcon, Edit, Trash } from "lucide-react";
+import { useAuth } from "@/lib/auth";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
 export default function EmployeesPage() {
@@ -22,7 +23,6 @@ export default function EmployeesPage() {
     email: "",
     role: "",
     password: "",
-    imageUrl: "",
     storageId: ""
   });
   const [isCreating, setIsCreating] = useState(false);
@@ -42,51 +42,44 @@ export default function EmployeesPage() {
     if (!file) return;
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("uploadedBy", user?.email || "unknown");
-
     try {
       const postUrl = await generateUploadUrl();
-
-
       const uploadResponse = await fetch(postUrl, {
         method: "POST",
         headers: { "Content-Type": file?.type },
         body: file,
       });
 
-      if (!uploadResponse.ok) {
-        throw new Error("Upload to storage failed");
-      }
+      if (!uploadResponse.ok) throw new Error("Upload to storage failed");
+
       const resultJson = await uploadResponse.json();
       const storageId = resultJson.storageId;
-      // Set the public image URL in the newEmployee state.
-      setNewEmployee((prev) => ({ ...prev, storageId: storageId }));
+
+      setNewEmployee((prev) => ({ ...prev, storageId }));
       toast("Image uploaded successfully!");
     } catch (error) {
       console.error("Image upload error:", error);
       toast("Image upload failed!");
     } finally {
       setIsUploading(false);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
-  // Create new employee
+  // Create new employee with password hashing
   const handleCreate = async () => {
     if (!newEmployee.name || !newEmployee.email || !newEmployee.role || !newEmployee.password || !newEmployee.storageId) {
       toast("Please fill in all fields");
       return;
     }
+
     setIsCreating(true);
     try {
-      await addEmployeeMutation(newEmployee);
+      const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
+      await addEmployeeMutation({ ...newEmployee, password: hashedPassword });
+
       toast("Employee created successfully!");
-      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId: "" });
+      setNewEmployee({ name: "", email: "", role: "", password: "", storageId: "" });
     } catch (error) {
       console.error("Employee create error:", error);
       toast("Failed to create employee");
@@ -95,16 +88,18 @@ export default function EmployeesPage() {
     }
   };
 
-  // Update existing employee
+  // Update existing employee with password hashing
   const handleUpdate = async () => {
     if (!editingEmployee) return;
+
     setIsCreating(true);
     try {
-      // Pass the employee _id along with updated fields
-      await updateEmployeeMutation({ ...newEmployee });
+      const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
+      await updateEmployeeMutation({ ...newEmployee, password: hashedPassword });
+
       toast("Employee updated successfully!");
       setEditingEmployee(null);
-      setNewEmployee({ name: "", email: "", role: "", password: "", imageUrl: "", storageId: "" });
+      setNewEmployee({ name: "", email: "", role: "", password: "", storageId: "" });
     } catch (error) {
       console.error("Employee update error:", error);
       toast("Failed to update employee");
@@ -131,13 +126,11 @@ export default function EmployeesPage() {
       name: employee.name,
       email: employee.email,
       role: employee.role,
-      password: employee.password,
-      imageUrl: employee.imageUrl || "",
+      password: "", // Reset password for security
       storageId: employee.storageId
     });
   };
 
-  // Reset file input when clicking the image upload button
   const handleFileInputClick = () => {
     fileInputRef.current?.click();
   };
@@ -150,30 +143,16 @@ export default function EmployeesPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="flex flex-col gap-2">
             <Label>Name</Label>
-            <Input
-              placeholder="Name"
-              value={newEmployee.name}
-              onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })}
-            />
+            <Input value={newEmployee.name} onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })} />
           </div>
           <div className="flex flex-col gap-2">
             <Label>Email</Label>
-            <Input
-              placeholder="Email"
-              value={newEmployee.email}
-              onChange={(e) => setNewEmployee({ ...newEmployee, email: e.target.value })}
-            />
+            <Input value={newEmployee.email} onChange={(e) => setNewEmployee({ ...newEmployee, email: e.target.value })} />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="role">Role</Label>
-            <Select
-              onValueChange={(value) =>
-                setNewEmployee({ ...newEmployee, role: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select your role" />
-              </SelectTrigger>
+            <Label>Role</Label>
+            <Select value={newEmployee.role} onValueChange={(value) => setNewEmployee({ ...newEmployee, role: value })}>
+              <SelectTrigger><SelectValue placeholder="Select role" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="user">User</SelectItem>
@@ -182,12 +161,7 @@ export default function EmployeesPage() {
           </div>
           <div className="flex flex-col gap-2">
             <Label>Password</Label>
-            <Input
-              type="password"
-              placeholder="Password"
-              value={newEmployee.password}
-              onChange={(e) => setNewEmployee({ ...newEmployee, password: e.target.value })}
-            />
+            <Input type="password" value={newEmployee.password} onChange={(e) => setNewEmployee({ ...newEmployee, password: e.target.value })} />
           </div>
           <div className="flex flex-col gap-2">
             <Label>Profile Image</Label>
@@ -219,43 +193,36 @@ export default function EmployeesPage() {
             <thead>
               <tr>
                 <th className="border p-2">Name</th>
-                <th className="border p-2">Email</th>
-                <th className="border p-2">Role</th>
-                <th className="border p-2">Image</th>
-                <th className="border p-2">Edit</th>
-                <th className="border p-2">Delete</th>
+                <th className="border p-2 hidden md:table-cell">Email</th>
+                <th className="border p-2 hidden md:table-cell">Role</th>
+                <th className="border p-2 hidden md:table-cell">Edit</th>
+                <th className="border p-2 hidden md:table-cell">Delete</th>
+                <th className="border p-2 table-cell md:hidden">Edit & Delete</th>
               </tr>
             </thead>
             <tbody>
               {employees.map((emp) => (
                 <tr key={emp._id}>
                   <td className="border p-2">{emp.name}</td>
-                  <td className="border p-2">{emp.email}</td>
-                  <td className="border p-2">{emp.role}</td>
-                  <td className="border p-2">
-                    {emp.imageUrl ? (
-                      <img src={emp.imageUrl} alt={emp.name} className="h-10 w-10 object-cover" />
-                    ) : (
-                      "No Image"
-                    )}
-                  </td>
-                  <td className="border p-2 text-center">
-                    <Button size="sm" onClick={() => handleEdit(emp)}>
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                  </td>
-                  <td className="border p-2 text-center">
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(emp.email)}>
-                      <Trash className="h-4 w-4" />
-                    </Button>
+                  <td className="border p-2 hidden md:table-cell">{emp.email}</td>
+                  <td className="border p-2 hidden md:table-cell">{emp.role}</td>
+                  <td className="border p-2 hidden md:table-cell"><Button size="sm" onClick={() => handleEdit(emp)}><Edit className="h-4 w-4" /></Button></td>
+                  <td className="border p-2 hidden md:table-cell"><Button size="sm" variant="destructive" onClick={() => handleDelete(emp.email)}><Trash className="h-4 w-4" /></Button></td>
+                  <td className="border p-2 table-cell md:hidden">
+                    <div className="flex flex-row sm:flex-col gap-2">
+                      <Button size="sm" onClick={() => handleEdit(emp)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleDelete(emp.email)}>
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        ) : (
-          <p className="text-gray-500">No employees found.</p>
-        )}
+        ) : <p>No employees found.</p>}
       </Card>
     </div>
   );

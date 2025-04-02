@@ -101,19 +101,26 @@ export default function CompanyDocsPage() {
             <thead>
               <tr>
                 <th className="border p-2">Name</th>
-                <th className="border p-2">View</th>
-                <th className="border p-2">Download</th>
+                <th className="border p-2">View & Download</th>
               </tr>
             </thead>
             <tbody>
               {companyDocs.map((doc) => (
                 <tr key={doc._id}>
                   <td className="border p-2 text-center">{doc.name}</td>
-                  <td className="border p-2 text-center">
-                    <PdfModal fileUrl={doc.url} triggerText={<EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />} />
-                  </td>
-                  <td className="border p-2 text-center">
-                    <a href={doc.url} target="_blank" download={doc.name} className="flex justify-center">
+                  <td className="border p-2 text-center flex gap-2 justify-center items-center">
+                    <PdfModal
+                      fileUrl={doc.url}
+                      triggerText={
+                        <EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />
+                      }
+                    />
+                    <a
+                      href={doc.url}
+                      target="_blank"
+                      download={doc.name}
+                      className="flex justify-center"
+                    >
                       <DownloadIcon className="h-5 w-5 text-green-500 cursor-pointer" />
                     </a>
                   </td>

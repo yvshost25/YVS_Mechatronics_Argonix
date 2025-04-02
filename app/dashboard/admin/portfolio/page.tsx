@@ -120,7 +120,7 @@ export default function PortfolioPage() {
               setNewPortfolio({ ...newPortfolio, description: e.target.value })
             }
           />
-          <div className="flex justify-between">
+          <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
             {/* Logo Upload */}
             <div className="flex items-center space-x-4">
               <Button
@@ -191,38 +191,42 @@ export default function PortfolioPage() {
       <Card className="p-6">
         <h2 className="text-xl font-semibold mb-4">Your Portfolios</h2>
         {portfolios.length > 0 ? (
-          <table className="w-full table-auto border-collapse">
-            <thead>
-              <tr>
-                <th className="border p-2">Name</th>
-                <th className="border p-2">Description</th>
-                <th className="border p-2">Logo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {portfolios.map((item) => (
-                <tr key={item._id}>
-                  <td className="border p-2">{item.name}</td>
-                  <td className="border p-2">{item.description}</td>
-                  <td className="border p-2 text-center">
-                    <div className="flex justify-center">
-                      {item.logoUrl ? (
-                        <Image
-                          src={item.logoUrl}
-                          alt={item.name}
-                          height={25}
-                          width={25}
-                          className="h-10 w-10 object-cover rounded-md"
-                        />
-                      ) : (
-                        "No Logo"
-                      )}
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full table-auto border-collapse">
+              <thead>
+                <tr>
+                  <th className="border p-2">Name</th>
+                  <th className="border p-2 hidden md:table-cell">Description</th>
+                  <th className="border p-2">Logo</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {portfolios.map((item) => (
+                  <tr key={item._id}>
+                    <td className="border p-2">{item.name}</td>
+                    <td className="border p-2 hidden md:table-cell">
+                      {item.description}
+                    </td>
+                    <td className="border p-2 text-center">
+                      <div className="flex justify-center">
+                        {item.logoUrl ? (
+                          <Image
+                            src={item.logoUrl}
+                            alt={item.name}
+                            height={25}
+                            width={25}
+                            className="h-10 w-10 object-cover rounded-md"
+                          />
+                        ) : (
+                          "No Logo"
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p className="text-gray-500">No portfolio items yet.</p>
         )}

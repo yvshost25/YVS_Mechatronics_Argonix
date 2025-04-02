@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
+import bcrypt from "bcryptjs";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -35,9 +36,21 @@ export const useAuth = create<AuthState>()(
           // Query Convex to get the user by email
           const user = await convex.query(api.employees.getEmployeeByEmail, { email });
 
-          // Validate user credentials
-          if (!user || user.password !== password || user.role !== role || user.name !== name) {
-            console.error("Invalid credentials");
+          if (!user) {
+            console.error("User not found");
+            return false;
+          }
+
+          // Compare the provided password with the hashed password
+          const isPasswordValid = await bcrypt.compare(password, user.password);
+          if (!isPasswordValid) {
+            console.error("Invalid password");
+            return false;
+          }
+
+          // Validate other credentials (role and name)
+          if (user.role !== role || user.name !== name) {
+            console.error("Invalid role or name");
             return false;
           }
 
