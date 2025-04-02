@@ -7,7 +7,6 @@ export const addEmployee = mutation({
     email: v.string(),
     role: v.string(),
     password: v.string(),
-    imageUrl:v.string(),
     storageId: v.optional(v.string()),
   },
   handler: async (ctx, { name, email, role, password, storageId }) => {
@@ -40,7 +39,6 @@ export const updateEmployee = mutation({
   args: {
     email: v.string(),
     role: v.string(),
-    imageUrl: v.string(),
     password: v.string(),
     name: v.string(),
     storageId: v.optional(v.string()),

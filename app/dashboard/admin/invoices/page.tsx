@@ -131,22 +131,19 @@ export default function InvoicesPage() {
             <thead>
               <tr>
                 <th className="border p-2">Type</th>
-                <th className="border p-2">View</th>
-                <th className="border p-2">Download</th>
+                <th className="border p-2">View & Download</th>
               </tr>
             </thead>
             <tbody>
               {invoices.map((inv) => (
                 <tr key={inv._id} className="border">
                   <td className="border p-2 text-center">{inv.type}</td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center flex gap-2 justify-center items-center">
                     {inv.fileUrl ? (
                       <PdfModal fileUrl={inv.fileUrl} triggerText={<EyeIcon className="h-5 w-5 text-blue-500 cursor-pointer" />} />
                     ) : (
                       "No File"
                     )}
-                  </td>
-                  <td className="border p-2 text-center">
                     {inv.fileUrl ? (
                       <a href={inv.fileUrl} target="_blank" download={inv.type} className="flex justify-center">
                         <DownloadIcon className="h-5 w-5 text-green-500 cursor-pointer" />
