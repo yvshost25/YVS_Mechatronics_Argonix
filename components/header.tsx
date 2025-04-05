@@ -73,12 +73,10 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Navigation */}
           <div className="flex md:hidden">
-            <ThemeToggle />
             <Button
               variant="ghost"
               className="ml-2"
