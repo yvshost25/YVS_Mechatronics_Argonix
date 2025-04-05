@@ -32,17 +32,10 @@ export default function RootLayout({
       <meta name='viewport' content='width=device-width, initial-scale=1'></meta>
       <body className={`${inter.className} overflow-x-hidden`}>
         <Provider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
           <Header />
           <main>
             {children}
           </main>
-        </ThemeProvider>
         </Provider>
       </body>
     </html>
