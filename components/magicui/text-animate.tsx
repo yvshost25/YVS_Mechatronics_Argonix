@@ -333,7 +333,7 @@ export function TextAnimate({
     }
   } else {
     // If children is not a string, treat it as a single segment
-    segments = [children?.toString() || ''];
+    segments = [children ? String(children) : ''];
   }
 
   const finalVariants = variants

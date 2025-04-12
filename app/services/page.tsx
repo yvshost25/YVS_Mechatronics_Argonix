@@ -297,9 +297,8 @@ export default function ProductsPage() {
                     containScroll: "trimSnaps",
                     slidesToScroll: 1
                   }}
-                  className="pb-6"
+                  className="pb-6,w-full"
                   setApi={setApi}
-                  className="w-full"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >

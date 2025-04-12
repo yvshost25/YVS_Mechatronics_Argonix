@@ -377,9 +377,8 @@ function TestimonialCarousel({ testimonials }: { testimonials: any[] }) {
           containScroll: "keepSnaps",
           slidesToScroll: 1
         }}
-        className="pb-4"
+        className="pb-4,w-full"
         setApi={setApi}
-        className="w-full"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
