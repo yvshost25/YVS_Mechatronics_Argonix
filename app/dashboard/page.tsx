@@ -1,108 +1,67 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useAuth } from "@/lib/auth"; // Import Zustand auth store
-import { useRouter } from "next/navigation"; // Import router for redirection
-import { Card } from "@/components/ui/card";
-import CADFilesPage from "./admin/cad-files/page";
-import InvoicesPage from "./admin/invoices/page";
-import CompanyDocsPage from "./admin/company-docs/page";
-import EmployeesPage from "./admin/employees/page";
-import PortfolioPage from "./admin/portfolio/page";
-import { Button } from "@/components/ui/button"; // Import button component
-import { LoaderIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { data: session, status } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
-  const [selectedTab, setSelectedTab] = useState("");
-
-  // Define navigation items for both roles
-  const adminNavItems = [
-    { label: "CAD Files", component: <CADFilesPage /> },
-    { label: "Invoices", component: <InvoicesPage /> },
-    { label: "Company Docs", component: <CompanyDocsPage /> },
-    { label: "Employee Management", component: <EmployeesPage /> },
-    { label: "Portfolio Management", component: <PortfolioPage /> },
-  ];
-
-  const userNavItems = [
-    { label: "CAD Files", component: <CADFilesPage /> },
-    { label: "Portfolio", component: <PortfolioPage /> },
-  ];
-
-  // Determine nav items based on user role; if user is not yet defined, default to an empty array.
-  const navItems = user?.role === "admin" ? adminNavItems : userNavItems;
-
-  // Use an effect to initialize the selected tab if it hasn't been set
+  
+  // Dynamically import admin or user dashboard content based on role
+  const userRole = session?.user?.role || "user";
+  
+  // Use dynamic imports to load the appropriate dashboard content
+  const AdminContent = dynamic(() => import('./admin/content'), { 
+    loading: () => <DashboardLoader text="Loading admin dashboard..." /> 
+  });
+  
+  const UserContent = dynamic(() => import('./user/content'), { 
+    loading: () => <DashboardLoader text="Loading user dashboard..." /> 
+  });
+  
   useEffect(() => {
-    if (!selectedTab && navItems.length > 0) {
-      setSelectedTab(navItems[0].label);
+    if (status !== "loading") {
+      setIsLoading(false);
     }
-  }, [selectedTab, navItems]);
-
-  // Handle Logout Function
-  const handleLogout = () => {
-    logout();
-    router.push("/auth/login");
-  };
-
-  if (!user) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-5">
-        <LoaderIcon className="animate-spin" />
-        <Button onClick={()=>router.replace("/auth/login")}>Login</Button>
-      </div>
-    );
+    
+    // Handle redirect if not authenticated
+    if (status === "unauthenticated") {
+      router.push("/auth/login");
+    }
+  }, [status, router]);
+  
+  // Show loader while checking session or redirecting
+  if (isLoading || status === "unauthenticated") {
+    return <DashboardLoader text={status === "unauthenticated" ? "Redirecting to login..." : "Loading your dashboard..."} />;
   }
-
-  // Find the current component to render based on selected tab
-  const currentComponent = navItems.find((item) => item.label === selectedTab)?.component;
-
+  
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Sidebar */}
-      <aside className="md:w-64 p-6">
-        <h2 className="text-3xl font-bold mb-8">Dashboard</h2>
-        <nav>
-          <ul className="space-y-4">
-            {navItems.map((item) => {
-              const isActive = selectedTab === item.label;
-              return (
-                <li key={item.label}>
-                  <button
-                    onClick={() => setSelectedTab(item.label)}
-                    className={`block w-full text-left px-4 py-2 rounded transition-colors ${
-                      isActive
-                        ? "bg-gray-300 dark:bg-gray-700 font-semibold"
-                        : "hover:bg-gray-400 dark:hover:bg-gray-600"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+    <div>
+      {userRole === "admin" ? <AdminContent /> : <UserContent />}
+    </div>
+  );
+}
 
-        {/* Logout Button */}
-        <div className="mt-8">
-          <Button
-            onClick={handleLogout}
-            size={"sm"}
-            className="w-full bg-red-500 hover:bg-red-700"
-          >
-            Logout
-          </Button>
+function DashboardLoader({ text }: { text: string }) {
+  return (
+    <div className="flex h-full items-center justify-center py-24">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center space-y-4 p-8 rounded-2xl bg-white/50 dark:bg-gray-800/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 shadow-xl"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full bg-indigo-200 dark:bg-indigo-900/30 animate-ping opacity-30"></div>
+          <Loader2 className="h-12 w-12 animate-spin text-indigo-600 dark:text-indigo-400 relative z-10" />
         </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6">
-        <Card className="p-6 shadow-lg">{currentComponent}</Card>
-      </main>
+        <p className="text-lg font-medium text-gray-700 dark:text-gray-300">{text}</p>
+      </motion.div>
     </div>
   );
 }

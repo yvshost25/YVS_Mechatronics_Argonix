@@ -1,0 +1,16 @@
+/* Login page styles */
+/* Animation for login card */
+.login-card-enter {
+  animation: loginCardEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loginCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

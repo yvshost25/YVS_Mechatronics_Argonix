@@ -1,0 +1,145 @@
+/* Enhanced scrollbar hiding and styling for dashboard */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ultra smooth sidebar transitions */
+.sidebar-transition {
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Smooth text appearance for sidebar */
+.sidebar-text {
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.sidebar-text-enter {
+  opacity: 0;
+  transform: translateX(-5px);
+}
+
+.sidebar-text-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-text-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-text-exit-active {
+  opacity: 0;
+  transform: translateX(-5px);
+}
+
+/* Enhanced animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.fade-slide-in {
+  animation: fadeSlideIn 0.3s ease-out forwards;
+}
+
+/* Enhanced navigation styles */
+.nav-link {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.nav-link:hover {
+  transform: translateX(5px);
+}
+
+/* Profile dropdown animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.2s ease-out forwards;
+}
+
+/* Backdrop filter enhancement */
+.glass-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Enhanced mobile animation */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInFromLeft 0.3s ease-out forwards;
+}
+
+/* Z-index layers for proper stacking */
+.z-dropdown {
+  z-index: 9999 !important;
+}
+
+.z-dropdown-backdrop {
+  z-index: 9998 !important;
+}
+
+.z-sidebar {
+  z-index: 100;
+}
+
+.z-header {
+  z-index: 90;
+}
+
+.z-content {
+  z-index: 1;
+}
+
+/* Hardware acceleration helpers */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}

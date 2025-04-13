@@ -18,19 +18,57 @@ export default function ContactPage() {
     phone: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formStatus, setFormStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({
+    type: null,
+    message: ''
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
+    setFormStatus({ type: null, message: '' })
 
-    const recipient = 'info@yvsmechotronics.com'
-    const subject = encodeURIComponent(`Inquiry from ${formData.name}`)
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
-    )
-    const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    // Redirect to mail client
-    window.location.href = mailtoUrl
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong. Please try again later.')
+      }
+
+      // Success
+      setFormStatus({
+        type: 'success',
+        message: data.message || 'Thank you for your message. We will get back to you soon!'
+      })
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      })
+    } catch (error) {
+      // Error
+      setFormStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Something went wrong. Please try again later.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -100,7 +138,7 @@ export default function ContactPage() {
                   <div>
                     <TypographyH3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Email Us</TypographyH3>
                     <a href="mailto:info@yvsmechotronics.com" className="text-blue-600 dark:text-blue-400 hover:underline">
-                      info@yvsmechotronics.com
+                      info@yvsmechatronics.in
                     </a>
                   </div>
                 </div>
@@ -111,7 +149,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <TypographyH3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Call Us</TypographyH3>
-                    <p className="text-slate-700 dark:text-slate-300">+91 88888 88888</p>
+                    <p className="text-slate-700 dark:text-slate-300">+91 79951 80016</p>
                   </div>
                 </div>
                 
@@ -212,12 +250,38 @@ export default function ContactPage() {
                       />
                     </div>
 
+                    {/* Form Status Messages */}
+                    {formStatus.type && (
+                      <div 
+                        className={`p-4 mb-4 rounded-md ${
+                          formStatus.type === 'success' 
+                            ? 'bg-green-50 text-green-800 dark:bg-green-900/30 dark:text-green-300' 
+                            : 'bg-red-50 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                        }`}
+                      >
+                        {formStatus.message}
+                      </div>
+                    )}
+                    
                     <Button 
                       type="submit" 
                       className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white"
+                      disabled={isSubmitting}
                     >
-                      Send Message
-                      <Send className="ml-2 h-4 w-4" />
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <Send className="ml-2 h-4 w-4" />
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>

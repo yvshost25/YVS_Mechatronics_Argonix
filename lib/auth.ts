@@ -22,6 +22,10 @@ interface AuthState {
     password: string,
     role: string
   ) => Promise<boolean>;
+  simplifiedLogin: (
+    email: string,
+    password: string
+  ) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -55,6 +59,41 @@ export const useAuth = create<AuthState>()(
           }
 
           // Set the user in the state
+          set({
+            user: {
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              imageUrl: user.imageUrl,
+            },
+            isAuthenticated: true,
+          });
+
+          return true;
+        } catch (error) {
+          console.error("Login error:", error);
+          return false;
+        }
+      },
+      
+      simplifiedLogin: async (email: string, password: string) => {
+        try {
+          // Query Convex to get the user by email
+          const user = await convex.query(api.employees.getEmployeeByEmail, { email });
+
+          if (!user) {
+            console.error("User not found");
+            return false;
+          }
+
+          // Compare the provided password with the hashed password
+          const isPasswordValid = await bcrypt.compare(password, user.password);
+          if (!isPasswordValid) {
+            console.error("Invalid password");
+            return false;
+          }
+
+          // Set the user in the state with automatically detected role and name
           set({
             user: {
               name: user.name,

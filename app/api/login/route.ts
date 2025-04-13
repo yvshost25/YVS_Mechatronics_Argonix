@@ -15,28 +15,55 @@ export function OPTIONS(req: NextRequest) {
   });
 }
 
-
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password, role } = await req.json();
+    const body = await req.json();
+    const { email, password } = body;
+    const isSimplifiedLogin = !body.name && !body.role;
+    let response;
 
-    if (!name || !email || !password || !role) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    // Handle simplified login (email and password only)
+    if (isSimplifiedLogin) {
+      if (!email || !password) {
+        return NextResponse.json({ error: "Missing email or password" }, { status: 400 });
+      }
+
+      const user = await convex.query(api.employees.getEmployeeByEmail, { email });
+
+      if (!user || user.password !== password) {
+        return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+      }
+
+      response = NextResponse.json({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        imageUrl: user.imageUrl,
+      });
+    } 
+    // Handle traditional login (with name and role)
+    else {
+      const { name, role } = body;
+      
+      if (!name || !email || !password || !role) {
+        return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      }
+
+      const user = await convex.query(api.employees.getEmployeeByEmail, { email });
+
+      if (!user || user.password !== password || user.role !== role || user.name !== name) {
+        return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+      }
+
+      response = NextResponse.json({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        imageUrl: user.imageUrl,
+      });
     }
-
-    const user = await convex.query(api.employees.getEmployeeByEmail, { email });
-
-    if (!user || user.password !== password || user.role !== role || user.name !== name) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-    }
-
-    const response = NextResponse.json({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      imageUrl: user.imageUrl,
-    });
 
     response.headers.set("Access-Control-Allow-Origin", "*");
     response.headers.set("Access-Control-Allow-Methods", "POST");

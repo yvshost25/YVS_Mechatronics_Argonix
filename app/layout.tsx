@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from '@/components/header'
 import 'normalize.css/normalize.css'
 import Provider from './provider'
 
@@ -13,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'YVS Mechotronics - Automation Industry Leaders',
+  title: 'YVS Mechatronics - Automation Industry Leaders',
   description: 'Industry leader in manufacturing special purpose machines, CNC, and precision machining.',
   icons: {
     icon: '/favicon.ico'
@@ -26,15 +25,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <meta name='viewport' content='width=device-width, initial-scale=1'></meta>
-      <body className={`${inter.className} overflow-x-hidden bg-white`}>
+      <body className={`${inter.className} overflow-x-hidden bg-background dark:bg-gray-900 scrollbar-hidden`}>
         <Provider>
-          <Header />
           <main>
             {children}
           </main>
-          {/* Footer is now only in Provider.tsx */}
+          {/* Header and Footer are now conditionally rendered in Provider.tsx */}
         </Provider>
       </body>
     </html>

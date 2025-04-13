@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ArrowRight, CheckCircle2, MoveRight } from "lucide-react";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import AboutPage from "./about/page";
 import ProductsPage from "./services/page";
 import CustomersPage from "./customers/page";
@@ -16,6 +17,9 @@ import { TypographyH1, TypographyH2, TypographyLead, TypographyP } from "@/compo
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 export default function Home() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  
   const highlights = [
     { 
       title: "Industrial Automation", 
@@ -82,7 +86,7 @@ export default function Home() {
               transition={{ duration: 0.9, delay: 0.2 }}
             >
               <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-tight drop-shadow-md mt-2"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 leading-tight mt-2 text-white drop-shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -91,7 +95,7 @@ export default function Home() {
               </motion.h1>
               
               <motion.p 
-                className="text-lg md:text-xl text-blue-50/90 mb-8 max-w-2xl leading-relaxed"
+                className="text-lg md:text-xl mb-8 max-w-2xl leading-relaxed text-white/90 text-shadow"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
@@ -138,9 +142,6 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
                 <CheckCircle2 className="h-4 w-4 text-blue-400" />
-                <span>ISO 9001 Certified</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/30"></span>
-                <CheckCircle2 className="h-4 w-4 text-blue-400" />
                 <span>Trusted by Industry Leaders</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-white/30"></span>
                 <CheckCircle2 className="h-4 w-4 text-blue-400" />
@@ -158,7 +159,12 @@ export default function Home() {
               <div className="relative w-full h-[650px]">
                 {/* Card 1 - Top Right - Randomly positioned */}
                 <motion.div 
-                  className="absolute rounded-xl overflow-hidden shadow-2xl bg-gradient-to-tr from-blue-600/70 to-indigo-600/70 backdrop-blur-md border border-white/30 w-64 h-36 p-4 z-30"
+                  className={`absolute rounded-xl overflow-hidden shadow-2xl backdrop-blur-md w-64 h-36 p-4 z-30 ${
+                    isDark 
+                      ? 'bg-gradient-to-tr from-blue-600/70 to-indigo-600/70 border border-white/30' 
+                      : 'bg-gradient-to-tr from-blue-500/90 to-indigo-500/90 border border-blue-300/50'
+                  }`}
+                  // @ts-ignore
                   style={{ top: '6%', right: '6%' }}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ 
@@ -173,6 +179,7 @@ export default function Home() {
                     y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                     rotate: { duration: 8, repeat: Infinity, ease: "easeInOut" }
                   }}
+                  // @ts-ignore
                   whileHover={{ scale: 1.05, zIndex: 40 }}
                 >
                   <h3 className="text-lg font-semibold text-white mb-1">Automation Systems</h3>
@@ -181,7 +188,12 @@ export default function Home() {
                 
                 {/* Card 2 - Middle Left - Randomly positioned */}
                 <motion.div 
-                  className="absolute rounded-xl overflow-hidden shadow-2xl bg-gradient-to-tr from-indigo-600/70 to-purple-600/70 backdrop-blur-md border border-white/30 w-64 h-36 p-4 z-20"
+                  className={`absolute rounded-xl overflow-hidden shadow-2xl backdrop-blur-md w-64 h-36 p-4 z-20 ${
+                    isDark 
+                      ? 'bg-gradient-to-tr from-indigo-600/70 to-purple-600/70 border border-white/30' 
+                      : 'bg-gradient-to-tr from-indigo-500/90 to-purple-500/90 border border-indigo-300/50'
+                  }`}
+                  // @ts-ignore
                   style={{ top: '30%', left: '10%' }}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ 
@@ -196,6 +208,7 @@ export default function Home() {
                     y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                     rotate: { duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
                   }}
+                  // @ts-ignore
                   whileHover={{ scale: 1.05, zIndex: 40 }}
                 >
                   <h3 className="text-lg font-semibold text-white mb-1">Precision Engineering</h3>
@@ -204,7 +217,12 @@ export default function Home() {
                 
                 {/* Card 3 - Bottom Right - Randomly positioned */}
                 <motion.div 
-                  className="absolute rounded-xl overflow-hidden shadow-2xl bg-gradient-to-tr from-cyan-600/70 to-blue-600/70 backdrop-blur-md border border-white/30 w-64 h-36 p-4 z-10"
+                  className={`absolute rounded-xl overflow-hidden shadow-2xl backdrop-blur-md w-64 h-36 p-4 z-10 ${
+                    isDark 
+                      ? 'bg-gradient-to-tr from-cyan-600/70 to-blue-600/70 border border-white/30' 
+                      : 'bg-gradient-to-tr from-cyan-500/90 to-blue-500/90 border border-cyan-300/50'
+                  }`}
+                  // @ts-ignore
                   style={{ bottom: '22%', right: '16%' }}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ 
@@ -219,6 +237,7 @@ export default function Home() {
                     y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 },
                     rotate: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }
                   }}
+                  // @ts-ignore
                   whileHover={{ scale: 1.05, zIndex: 40 }}
                 >
                   <h3 className="text-lg font-semibold text-white mb-1">Special-Purpose Machines</h3>
@@ -254,10 +273,9 @@ export default function Home() {
                   icon={<Image 
                     src={highlight.icon} 
                     alt={highlight.title} 
-                    width={48} 
-                    height={48} 
-                    className="object-contain" 
-                  />}
+                    layout="fill"
+                    className="object-cover rounded-xl" 
+                  />}
                   iconClassName="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl flex items-center justify-center mb-6 shadow-md"
                   className="h-full border-2 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                   contentClassName="p-6 relative z-10"

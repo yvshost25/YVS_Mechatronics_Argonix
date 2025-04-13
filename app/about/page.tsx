@@ -44,7 +44,7 @@ export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-slate-900">
       {/* Hero Section with Modern Design */}
-      <section className="relative py-20 md:py-28 overflow-hidden bg-white">
+      <section className="relative py-20 md:py-28 overflow-hidden bg-white dark:bg-slate-900">
         {/* Background design elements */}
         <div className="absolute right-0 top-1/4 w-64 h-64 bg-blue-300/20 rounded-full filter blur-3xl"></div>
         <div className="absolute left-0 bottom-1/4 w-96 h-96 bg-indigo-300/20 rounded-full filter blur-3xl"></div>
@@ -57,15 +57,15 @@ export default function AboutPage() {
               transition={fadeIn.transition}
               className="text-center lg:text-left"
             >
-              <div className="inline-block px-6 py-2 bg-blue-100 rounded-full mb-8 text-blue-600 text-sm font-medium">
+              <div className="inline-block px-6 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-8 text-blue-600 dark:text-blue-400 text-sm font-medium">
                 About YVS Mechatronics
               </div>
               
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-slate-900 leading-tight">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-slate-900 dark:text-white leading-tight">
                 Engineering Excellence & Innovation
               </h1>
               
-              <p className="text-xl text-slate-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-xl text-slate-600 dark:text-slate-300 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 At YVS Mechatronics, we're dedicated to transforming industries through cutting-edge automation, 
                 precision engineering, and innovative special-purpose machines.
               </p>
@@ -261,9 +261,9 @@ export default function AboutPage() {
                       <div className="bg-indigo-50 dark:bg-slate-800/80 p-6 rounded-xl shadow-lg overflow-hidden relative group-hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-indigo-100 dark:border-indigo-900/40">
                         <div className="absolute top-0 right-0 w-2 h-full bg-indigo-500 dark:bg-indigo-600"></div>
                         <div className="flex flex-wrap justify-center gap-4 items-center">
-                          <Image src="/nuclear_logo.png" alt="Nuclear Fuel Complex" width={80} height={40} className="object-contain bg-white p-2 rounded-lg shadow-sm" />
-                          <Image src="/hal_logo.png" alt="HAL" width={80} height={40} className="object-contain bg-white p-2 rounded-lg shadow-sm" />
-                          <Image src="/drdo_logo.png" alt="DRDO" width={80} height={40} className="object-contain bg-white p-2 rounded-lg shadow-sm" />
+                          <Image src="/nuclear_logo.png" alt="Nuclear Fuel Complex" width={80} height={40} className="object-contain bg-white dark:bg-gray-700 p-2 rounded-lg shadow-sm" />
+                          <Image src="/hal_logo.png" alt="HAL" width={80} height={40} className="object-contain bg-white dark:bg-gray-700 p-2 rounded-lg shadow-sm" />
+                          <Image src="/drdo_logo.png" alt="DRDO" width={80} height={40} className="object-contain bg-white dark:bg-gray-700 p-2 rounded-lg shadow-sm" />
                         </div>
                       </div>
                     </div>

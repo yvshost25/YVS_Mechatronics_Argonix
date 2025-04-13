@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { ScrollProgress } from './magicui/scroll-progress'
+import { ThemeToggle } from './theme/theme-toggle'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -30,7 +31,6 @@ const Header = () => {
     { name: 'About', id: 'about' },
     { name: 'Services', id: 'services' },
     { name: 'Customers', id: 'customers' },
-    { name: 'Contact', id: 'contact' },
   ]
 
   // Smooth scroll to a section by id
@@ -87,7 +87,7 @@ const Header = () => {
             </div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex md:items-center md:space-x-8">
+            <div className="hidden md:flex md:items-center md:space-x-6">
               {navigation.map((item) => (
                 <button
                   key={item.name}
@@ -101,12 +101,16 @@ const Header = () => {
                 </button>
               ))}
               
-              <Button 
-                className="ml-2 bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={() => handleLinkClick('contact')}
-              >
-                Get a Quote
-              </Button>
+              <div className="flex items-center space-x-3">
+                <ThemeToggle />
+                
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => handleLinkClick('contact')}
+                >
+                  Get a Quote
+                </Button>
+              </div>
             </div>
 
             {/* Mobile Navigation Toggle */}
@@ -145,7 +149,12 @@ const Header = () => {
                   Get a Quote
                 </Button>
                 
-                <div className="pt-4 border-t space-y-2">
+                <div className="pt-4 border-t space-y-4">
+                  <div className="flex items-center justify-between px-3">
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-200">Toggle theme</span>
+                    <ThemeToggle />
+                  </div>
+                  
                   <div className="flex items-center px-3 text-sm text-slate-700 dark:text-slate-200">
                     <Phone className="h-4 w-4 mr-2 text-blue-600 dark:text-blue-400" />
                     <span>+91 88888 88888</span>
