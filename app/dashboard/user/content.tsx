@@ -38,7 +38,7 @@ export default function UserContent() {
   const statCards = useMemo(() => [
     { 
       name: "My CAD Files", 
-      value: isLoading ? "..." : cadFiles.length.toString(), 
+      value: cadFiles === undefined ? "..." : cadFiles.length.toString(), 
       icon: FileIcon, 
       colorScheme: {
         gradient: "from-blue-500 to-blue-600",
@@ -47,14 +47,14 @@ export default function UserContent() {
     },
     { 
       name: "My Portfolio", 
-      value: isLoading ? "..." : portfolios.length.toString(), 
+      value: portfolios === undefined ? "..." : portfolios.length.toString(), 
       icon: Briefcase, 
       colorScheme: {
         gradient: "from-purple-500 to-purple-600",
         bg: "bg-purple-50 dark:bg-purple-950/30"
       }
     },
-  ], [cadFiles, portfolios, isLoading]);
+  ], [cadFiles, portfolios]);
   
   return (
     <div className="space-y-8">
@@ -67,11 +67,7 @@ export default function UserContent() {
           <StatCard
             key={stat.name}
             title={stat.name}
-            value={isLoading ? (
-              <div className="flex items-center justify-center">
-                <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
-              </div>
-            ) : stat.value}
+            value={stat.value}
             icon={stat.icon}
             colorScheme={stat.colorScheme}
           />

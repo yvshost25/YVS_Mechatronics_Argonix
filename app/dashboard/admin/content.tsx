@@ -43,7 +43,7 @@ export default function AdminContent() {
   const statCards = useMemo(() => [
     { 
       name: "Total CAD Files", 
-      value: isLoading ? "..." : cadFiles.length.toString(), 
+      value: cadFiles === undefined ? "..." : cadFiles.length.toString(), 
       icon: FileIcon, 
       colorScheme: {
         gradient: "from-blue-500 to-blue-600",
@@ -52,7 +52,7 @@ export default function AdminContent() {
     },
     { 
       name: "Total Users", 
-      value: isLoading ? "..." : employees.length.toString(), 
+      value: employees === undefined ? "..." : employees.length.toString(), 
       icon: Users, 
       colorScheme: {
         gradient: "from-emerald-500 to-emerald-600",
@@ -61,7 +61,7 @@ export default function AdminContent() {
     },
     { 
       name: "Total Portfolio", 
-      value: isLoading ? "..." : portfolios.length.toString(), 
+      value: portfolios === undefined ? "..." : portfolios.length.toString(), 
       icon: Briefcase, 
       colorScheme: {
         gradient: "from-purple-500 to-purple-600",
@@ -70,14 +70,14 @@ export default function AdminContent() {
     },
     { 
       name: "Total Invoices", 
-      value: isLoading ? "..." : invoices.length.toString(), 
+      value: invoices === undefined ? "..." : invoices.length.toString(), 
       icon: FileText, 
       colorScheme: {
         gradient: "from-amber-500 to-amber-600",
         bg: "bg-amber-50 dark:bg-amber-950/30"
       }
     },
-  ], [cadFiles, employees, portfolios, invoices, isLoading]);
+  ], [cadFiles, employees, portfolios, invoices]);
   
   return (
     <div className="space-y-8">
@@ -90,11 +90,7 @@ export default function AdminContent() {
           <StatCard
             key={stat.name}
             title={stat.name}
-            value={isLoading ? (
-              <div className="flex items-center justify-center">
-                <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
-              </div>
-            ) : stat.value}
+            value={stat.value}
             icon={stat.icon}
             colorScheme={stat.colorScheme}
           />
