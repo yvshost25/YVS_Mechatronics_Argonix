@@ -514,11 +514,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             
             {/* Right side header actions */}
             <div className="ml-auto flex items-center space-x-3">
-              {/* Notifications button */}
-              <button className="p-1.5 rounded-full relative hover:bg-gray-100 dark:hover:bg-gray-700/70">
-                <Bell className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-              </button>
+              {/* Notifications button removed as requested */}
               
               {/* Profile dropdown button */}
               <div className="relative">
@@ -590,22 +586,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                       </div>
                       
                       <div className="p-1">
-                        <Link
-                          href="/dashboard/profile"
-                          className="flex items-center w-full px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/70"
-                          onClick={() => setProfileOpen(false)}
-                        >
-                          <User className="h-4 w-4 mr-3 text-gray-500 dark:text-gray-400" />
-                          Your Profile
-                        </Link>
-                        <Link
-                          href="/dashboard/settings"
-                          className="flex items-center w-full px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/70"
-                          onClick={() => setProfileOpen(false)}
-                        >
-                          <Settings className="h-4 w-4 mr-3 text-gray-500 dark:text-gray-400" />
-                          Settings
-                        </Link>
+                        {/* Profile and Settings links removed as requested */}
                       </div>
                       
                       <div className="border-t border-gray-100 dark:border-gray-700/50 p-1">

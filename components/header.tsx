@@ -157,11 +157,11 @@ const Header = () => {
                   
                   <div className="flex items-center px-3 text-sm text-slate-700 dark:text-slate-200">
                     <Phone className="h-4 w-4 mr-2 text-blue-600 dark:text-blue-400" />
-                    <span>+91 88888 88888</span>
+                    <span>+91 79951 80016</span>
                   </div>
                   <div className="flex items-center px-3 text-sm text-slate-700 dark:text-slate-200">
                     <Mail className="h-4 w-4 mr-2 text-blue-600 dark:text-blue-400" />
-                    <span>info@yvsmechotronics.com</span>
+                    <span>info@yvsmechatronics.com</span>
                   </div>
                 </div>
               </div>
