@@ -115,8 +115,9 @@ ${message}
       }
     } catch (emailError) {
       console.error('All email sending methods failed:', emailError);
+      const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown email sending error';
       return NextResponse.json(
-        { error: `Email sending failed: ${emailError.message}` },
+        { error: `Email sending failed: ${errorMessage}` },
         { status: 500 }
       );
     }
