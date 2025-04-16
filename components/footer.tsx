@@ -71,14 +71,14 @@ const Footer = () => {
                   <div className="h-8 w-8 mr-3 flex items-center justify-center bg-slate-800/70 rounded-lg text-blue-500 flex-shrink-0">
                     <Phone className="h-4 w-4" />
                   </div>
-                  <span className="text-slate-300 text-sm">+91 88888 88888</span>
+                  <span className="text-slate-300 text-sm">+91 7995180016</span>
                 </li>
                 <li className="flex items-center">
                   <div className="h-8 w-8 mr-3 flex items-center justify-center bg-slate-800/70 rounded-lg text-blue-500 flex-shrink-0">
                     <Mail className="h-4 w-4" />
                   </div>
-                  <a href="mailto:info@yvsmechotronics.com" className="text-slate-300 hover:text-white text-sm">
-                    info@yvsmechotronics.com
+                  <a href="mailto:info@yvsmechatronics.com" className="text-slate-300 hover:text-white text-sm">
+                    info@yvsmechatronics.com
                   </a>
                 </li>
                 <li className="flex items-center">

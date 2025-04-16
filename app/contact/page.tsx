@@ -137,7 +137,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <TypographyH3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Email Us</TypographyH3>
-                    <a href="mailto:info@yvsmechotronics.com" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    <a href="mailto:info@yvsmechatronics.com" className="text-blue-600 dark:text-blue-400 hover:underline">
                       info@yvsmechatronics.in
                     </a>
                   </div>
